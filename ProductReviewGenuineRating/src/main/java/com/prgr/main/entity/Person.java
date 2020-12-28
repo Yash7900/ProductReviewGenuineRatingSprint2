@@ -8,6 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "PERSON")
@@ -16,18 +21,35 @@ public class Person implements Serializable{
     @GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="PERSON_ID")
 	private int personId;
+	
 	@Column(name = "PERSON_FIRST_NAME")
+	@NotNull
+	@Size(min=2,max=15,message="Enter Valid First_Name")
 	private String firstName;
+	
 	@Column(name = "PERSON_LAST_NAME")
+	@NotNull
+	@Size(min=2,max=15,message="Enter Valid Last_Name")
 	private String lastName;
+	
+	
 	@Column(name = "PERSON_ADDRESS")
+	@NotNull
 	private String address;
+	
 	@Column(name = "PERSON_PHONE")
+	//@Pattern(regexp="^[0-9]{6}",message="Enter Valid Phone number.")
 	private Long phoneNumber;
+	
+	
 	@Column(name = "PERSON_EMAIL_ID")
+	@Email
 	private String emailId;
-	@Column(name = "PERSON_PASSWORD")
+	
+	@Column(name = "PERSON_Password")
+	@Pattern(regexp="^[a-zA-Z0-9]{6}",message="Password length must be 6")  
 	private String password;
+	
 	@Column(name = "PERSON_ROLE")
 	private String role;
 
