@@ -16,12 +16,19 @@ public class PersonServiceImpl implements PersonService{
 	@Autowired
 	private PersonJpaRepository personRepo;
 
+	/**
+	 * Registration of Users
+	 */
+	
 	@Override
 	public Person addPerson(Person person) {
 		return personRepo.save(person);
 		
 	}
 
+	/**
+	 * Updating User details
+	 */
 	@Override
 	public Person updatePerson(Person person) {
 		Person presentPerson=personRepo.getOne(person.getPersonId());
@@ -35,16 +42,42 @@ public class PersonServiceImpl implements PersonService{
 		
 	}
 
+	/**
+	 * fetch all Users from Repository
+	 */
 	@Override
 	public List<Person> getAllPerson() {
 		// TODO Auto-generated method stub
 		return personRepo.findAll();
 	}
 
+	/**
+	 * User login Checks with Repository
+	 */
 	@Override
-	public boolean loginPerson(String email, String Password) {
+	public boolean loginPerson(String email, String password) {
 		// TODO Auto-generated method stub
+		Person person=personRepo.findByEmailId(email);
+		if(person.getEmailId().equals(email) && person.getPassword().equals(password)) {
+			return true;
+		}
+		else {
 		return false;
+		}
+	}
+
+	/**
+	 * Admin login Checks with Repository
+	 */
+	@Override
+	public boolean loginAdmin(String username, String password) {
+		// TODO Auto-generated method stub
+		if(username.equals("admin") && password.equals("admin1234")) {
+			return true;
+		}
+		else {
+		return false;
+		}
 	}
 
 }
