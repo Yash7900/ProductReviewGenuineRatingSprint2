@@ -25,12 +25,12 @@ import com.prgr.main.entity.Person;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace=Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
-class PersonJpaRepositoryTest {
+class PersonRepositoryTest {
 	
 	@Autowired
 	private TestEntityManager entityManager;
 	@Autowired
-	private PersonJpaRepository personRepo;
+	private PersonRepository personRepo;
 	
 	public Person getPerson() {
 		Person person=new Person();
@@ -39,7 +39,7 @@ class PersonJpaRepositoryTest {
 		person.setAddress("amboli");
 		person.setPhoneNumber(983356549);
 		person.setEmailId("yash@email.com");
-		person.setPassword("yash@1234");
+		person.setPassword("yash08");
 		return person;
 	}
 

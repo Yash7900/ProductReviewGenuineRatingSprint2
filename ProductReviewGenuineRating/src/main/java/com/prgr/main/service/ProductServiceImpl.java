@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prgr.main.entity.Product;
-import com.prgr.main.repository.ProductJpaRepository;
+import com.prgr.main.repository.ProductRepository;
 
 @Transactional
 @Service
 public class ProductServiceImpl implements ProductService{
 
 	@Autowired
-	private ProductJpaRepository productRepo;
+	private ProductRepository productRepo;
 	//------------------------ 1. ProductReviewGenuineRating Application --------------------------
 			/*******************************************************************************************
 			         - Function Name	:	addProduct

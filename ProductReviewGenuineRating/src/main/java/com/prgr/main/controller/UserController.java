@@ -23,6 +23,12 @@ public class UserController {
 	@Autowired
 	private PersonService personService;
 	
+	/**
+	 * This method is used to register user.It accepts details of user
+	 * and pass the control to the service layer addPerson() method.
+	 * @param 
+	 * @return ResponseEntity<Person>
+	 */
 	@PostMapping("/addperson")
 	public ResponseEntity<Person> addPerson(@Valid @RequestBody Person person){
 		Person savePerson=personService.addPerson(person);
@@ -32,7 +38,12 @@ public class UserController {
 		return new ResponseEntity<Person>(savePerson, HttpStatus.OK);
 		
 	}
-	
+	/**
+	 *  This method accpets login credentials from user
+	 * and pass that credentials to service layer loginPerson() method.
+	 * @param 
+	 * @return  ResponseEntity<String>
+	 */
 	@GetMapping("/login")
 	public ResponseEntity<String> adminLogin(@RequestParam("email")String email,@RequestParam("password")String password) {
 		boolean login=personService.loginPerson(email, password);
@@ -43,7 +54,12 @@ public class UserController {
 			return new ResponseEntity<String>("Login Failed", HttpStatus.NOT_FOUND);
 		}
 	}
-	
+	/**
+	 * It accepts details from user and pass it to
+	 * the service layer updatePerson() method.
+	 * @param 
+	 * @return ResponseEntity<Person> 
+	 */
 	@PutMapping("/updateperson")
 	public ResponseEntity<Person> updatePerson(@Valid @RequestBody Person person){
 		Person updtPerson=personService.updatePerson(person);

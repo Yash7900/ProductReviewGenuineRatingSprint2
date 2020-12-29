@@ -5,8 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,12 +30,12 @@ public class AdminController {
 	@Autowired
 	private ProductService productService;
 
-	/*******************************************************************************************
-	 * - Function Name : adminLogin - Input Parameters :username,passsword(request from
-	 * admin) - Return Type : ResponseEntity<String> - Description : get boolean from the service 
-	 * layer (T/F).Based on correct credentials.
-	 *******************************************************************************************/
-
+	/**
+	 *  This method accpets login credentials from admin
+	 * and pass that credentials to service layer loginAdmin() method.
+	 * @param 
+	 * @return  ResponseEntity<String>
+	 */
 	@GetMapping("/login")
 	public ResponseEntity<String> adminLogin(@RequestParam("username") String username,
 			@RequestParam("password") String password) {
@@ -43,14 +46,13 @@ public class AdminController {
 			return new ResponseEntity<String>("Login Failed", HttpStatus.NOT_FOUND);
 		}
 	}
-	/*******************************************************************************************
-	 * - Function Name : getAllPerson - Input Parameters : empty - Return Type :
-	 * List<Person> object - Description : it will fetch all the person details
-	 * from database by passing control to service by calling getAllProduct()
-	 * 
-	 *******************************************************************************************/
-
 	
+	/**
+	 * It will fetch all the person details
+	 * from database by passing control to service by calling getAllPerson()
+	 * @param empty
+	 * @return List<Person> object
+	 */
 	@GetMapping("/allusers")
 	public ResponseEntity<List<Person>> getAllPerson() {
 		List<Person> personList = personService.getAllPerson();
@@ -61,85 +63,78 @@ public class AdminController {
 		}
 	}
 
-	/*******************************************************************************************
-	 * - Function Name : addProduct - Input Parameters : product object(request from
-	 * admin) - Return Type : product object - Description : get the request from
-	 * admin as an object (use of @RequestBody annotation) and controller controls
-	 * flow to service by calling addProduct()
-	 * 
-	 *******************************************************************************************/
+	
+	/**
+	 * It accepts product details from admin and pass it to
+	 * the service layer addProduct() method.
+	 * @param product
+	 * @return Product Object
+	 */
 
-	@RequestMapping(value = "/addproduct", method = RequestMethod.POST)
+	@PostMapping(value = "/addproduct")
 	public Product addProduct(@RequestBody Product product) {
 		Product add = productService.addProduct(product);
 		return add;
 	}
 
-	/*******************************************************************************************
-	 * - Function Name : deleteProduct - Input Parameters : id object(request from
-	 * client) - Return Type : product object - Description : delete the product
-	 * from the database by calling deleteProduct()
-	 * 
-	 *******************************************************************************************/
-
-	@RequestMapping(value = "/deleteproduct/{id}", method = RequestMethod.DELETE)
-	public Product deleteProduct(@PathVariable int id) {
+	/**
+	 * It takes product ID and pass it to the service layer deleteProduct() method.
+	 * @param product Id
+	 * @return ResponseEntity<String>
+	 */
+	
+	@DeleteMapping(value = "/deleteproduct")
+	public Product deleteProduct(@RequestParam("productId") int id) {
 		Product delete = productService.deletProduct(id);
 		return delete;
 	}
 
-	/*******************************************************************************************
-	 * - Function Name : updateProduct - Input Parameters : product object(request
-	 * from client) - Return Type : product object - Description : update product
-	 * database when departmentId the matches in database by calling updateProduct()
-	 * 
-	 *******************************************************************************************/
-
-	@RequestMapping(value = "/updateproduct", method = RequestMethod.PUT)
+	/**
+	 * It accepts product details from admin and pass it to
+	 * the service layer updateProduct() method.
+	 * @param product
+	 * @return Product Object
+	 */
+	@PutMapping(value = "/updateproduct")
 	public Product updateProduct(@RequestBody Product product) {
 		Product update = productService.updateProduct(product);
 		return update;
 	}
 
-	/*******************************************************************************************
-	 * - Function Name : getProductById - Input Parameters : id object(request from
-	 * client) - Return Type : product object - Description : it will fetch all the
-	 * product details (use of @PathVariable annotation) based on id from database
-	 * by passing control to service by calling getProductById()
-	 * 
-	 * 
-	 *******************************************************************************************/
-
-	@RequestMapping(value = "/getproductbyid/{id}")
-	public Product getProductById(@PathVariable int id) {
+	/**
+	 * It will fetch product details based on id
+	 * by passing control to service layer by calling getAllProduct()
+	 * @param product id
+	 * @return Product object
+	 */
+	@GetMapping(value = "/getproductbyid")
+	public Product getProductById(@RequestParam("productId") int id) {
 		Product product = productService.getProductById(id);
 		return product;
 	}
 
-	/*******************************************************************************************
-	 * - Function Name : getProductList - Input Parameters : empty - Return Type :
-	 * List<product> object - Description : it will fetch all the product details
-	 * from database by passing control to service by calling getProductList()
-	 * 
-	 *******************************************************************************************/
-
-	@RequestMapping(value = "/getallproduct")
+	
+	/**
+	 * It will fetch all the products
+	 * from database by passing control to service layer by calling getAllProductList()
+	 * @param empty
+	 * @return List<Product> object
+	 */
+	@GetMapping(value = "/getallproduct")
 	public List<Product> getProductList() {
 		List<Product> productList = productService.getProductList();
 		return productList;
 	}
 
-	/*******************************************************************************************
-	 * - Function Name : getProductCategory - Input Parameters : category
-	 * object(request from client) - Return Type : List<Product> object -
-	 * Description : it will fetch all the product details (use of @PathVariable
-	 * annotation) based on category from database by passing control to service by
-	 * calling getProductByCategory()
-	 * 
-	 *******************************************************************************************/
+	/**
+	 * It will fetch all the products based on category
+	 * by passing control to service layer by calling getProductByCategory()
+	 * @param category
+	 * @return List<Person> object
+	 */
 
-	@RequestMapping(value = "/getproductbycategory/{category}")
-	public List<Product> getProductByCategory(@PathVariable String category) {
+	@GetMapping(value = "/getproductbycategory")
+	public List<Product> getProductByCategory(@RequestParam("category") String category) {
 		List<Product> list = productService.getProductByCategory(category);
 		return list;
 	}

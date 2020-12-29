@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prgr.main.entity.Person;
-import com.prgr.main.repository.PersonJpaRepository;
+import com.prgr.main.repository.PersonRepository;
 
 @Service
 @Transactional
 public class PersonServiceImpl implements PersonService{
 	
 	@Autowired
-	private PersonJpaRepository personRepo;
+	private PersonRepository personRepo;
 
 	/**
 	 * Registration of Users
