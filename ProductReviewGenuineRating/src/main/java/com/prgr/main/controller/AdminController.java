@@ -63,8 +63,8 @@ public class AdminController {
 
 	/*******************************************************************************************
 	 * - Function Name : addProduct - Input Parameters : product object(request from
-	 * client) - Return Type : product object - Description : get the request from
-	 * client as an object (use of @RequestBody annotation) and controller controls
+	 * admin) - Return Type : product object - Description : get the request from
+	 * admin as an object (use of @RequestBody annotation) and controller controls
 	 * flow to service by calling addProduct()
 	 * 
 	 *******************************************************************************************/
