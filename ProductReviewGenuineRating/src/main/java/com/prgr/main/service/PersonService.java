@@ -43,6 +43,11 @@ public interface PersonService {
 	 * @return  List<Person>
 	 */
 	public List<Person> getAllPerson();
-	
+	/**
+	 * This method get a person based on their 
+	 * from repository
+	 * @param personId
+	 * @return boolean
+	 */
 	public boolean getPerson(int personId);
 }

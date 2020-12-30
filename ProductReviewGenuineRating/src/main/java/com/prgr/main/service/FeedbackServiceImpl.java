@@ -2,17 +2,20 @@ package com.prgr.main.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.prgr.main.controller.AdminController;
 import com.prgr.main.entity.Feedback;
 import com.prgr.main.repository.FeedbackRepository;
 
 @Transactional
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
-
+	private static final Logger logger=LoggerFactory.getLogger(FeedbackServiceImpl.class);
 	@Autowired
 	private FeedbackRepository feedbackRepo;
 	/**
@@ -22,7 +25,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 */
 	@Override
 	public Feedback addFeedback(Feedback feedback) {
-
+		logger.info("adding Feedback");
 		return feedbackRepo.save(feedback);
 	}
 	/**
@@ -31,6 +34,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 */
 	@Override
 	public List<Feedback> viewAllFeedback() {
+		logger.info("view all Feedback");
 		// TODO Auto-generated method stub
 		return feedbackRepo.findAll();
 	}
@@ -43,13 +47,20 @@ public class FeedbackServiceImpl implements FeedbackService {
 	@Override
 	public void deleteFeedback(int feedbackId) {
 		// TODO Auto-generated method stub
+		logger.info("deleting Feedback");
 		feedbackRepo.deleteById(feedbackId);
 		//Feedback feedback=feedbackRepo.getOne(feedbackId);
 		
 	}
+	/**
+	 * This method get feedback from Repository based on Id.
+	 * @param feedbackId
+	 * @return boolean
+	 */
 	@Override
 	public boolean getFeedbackById(int feedbackId) {
 		// TODO Auto-generated method stub
+		logger.info("getFeedbackById()");
 		if(feedbackRepo.findById(feedbackId).isPresent()) {
 			return true;
 		}

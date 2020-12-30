@@ -24,7 +24,11 @@ public interface FeedbackService {
 	 * @return Feedback
 	 */
 	public void deleteFeedback(int feedbackId);
-	
+	/**
+	 * This method get feedback from Repository based on Id.
+	 * @param feedbackId
+	 * @return boolean
+	 */
 	public boolean getFeedbackById(int feedbackId);
 
 }
