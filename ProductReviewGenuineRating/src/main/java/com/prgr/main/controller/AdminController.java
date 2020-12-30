@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prgr.main.entity.Feedback;
 import com.prgr.main.entity.Person;
 import com.prgr.main.entity.Product;
+import com.prgr.main.service.FeedbackService;
 import com.prgr.main.service.PersonService;
 import com.prgr.main.service.ProductService;
 
@@ -29,9 +30,11 @@ public class AdminController {
 	private PersonService personService;
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private FeedbackService feedbackService;
 
 	/**
-	 *  This method accpets login credentials from admin
+	 *  This method accepts login credentials from admin
 	 * and pass that credentials to service layer loginAdmin() method.
 	 * @param 
 	 * @return  ResponseEntity<String>
@@ -83,8 +86,8 @@ public class AdminController {
 	 * @return ResponseEntity<String>
 	 */
 	
-	@DeleteMapping(value = "/deleteproduct")
-	public Product deleteProduct(@RequestParam("productId") int id) {
+	@DeleteMapping(value = "/deleteproduct/{productId}")
+	public Product deleteProduct(@PathVariable("productId") int id) {
 		Product delete = productService.deletProduct(id);
 		return delete;
 	}
@@ -107,8 +110,8 @@ public class AdminController {
 	 * @param product id
 	 * @return Product object
 	 */
-	@GetMapping(value = "/getproductbyid")
-	public Product getProductById(@RequestParam("productId") int id) {
+	@GetMapping(value = "/getproductbyid/{productId}")
+	public Product getProductById(@PathVariable("productId") int id) {
 		Product product = productService.getProductById(id);
 		return product;
 	}
@@ -137,6 +140,29 @@ public class AdminController {
 	public List<Product> getProductByCategory(@RequestParam("category") String category) {
 		List<Product> list = productService.getProductByCategory(category);
 		return list;
+	}
+	
+	/**
+	 * This method display all the feedbacks from database.
+	 * @return ResponseEntity<List<Feedback>>
+	 */
+	@GetMapping("/getAll")
+	public ResponseEntity<List<Feedback>> getAllFeedback()
+	{
+		List<Feedback> feedbackList=feedbackService.viewAllFeedback();
+		return new ResponseEntity<List<Feedback>>(feedbackList,HttpStatus.OK);
+	}
+	
+	/**
+	 * This method delete feedback by id parameter.
+	 * @param id
+	 * @return ResponseEntity<Feedback>
+	 */
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Feedback> deleteFeedback(@PathVariable("id") Integer feedbackId)
+	{
+		Feedback feedback=feedbackService.deleteFeedback(feedbackId);
+		return new ResponseEntity<Feedback>(feedback,HttpStatus.OK);
 	}
 
 }
