@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -14,13 +15,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.prgr.main.ProductReviewGenuineRatingApplication;
 import com.prgr.main.entity.Person;
-//@SpringBootTest(classes=ProductReviewGenuineRatingApplication.class,webEnvironment=SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace=Replace.NONE)
@@ -59,6 +57,17 @@ class PersonRepositoryTest {
 	public void getAllPerson(){
 		List<Person> personList=personRepo.findAll();
 		assertThat(personList).size().isGreaterThan(0);
+	}
+	
+	@Test
+	@Ignore
+	@Order(3)
+	public void updatePerson() {
+		Person person=getPerson();
+		Person savedPerson=personRepo.getOne(person.getPersonId());
+		savedPerson.setFirstName("ram");
+		Person updatePerson=personRepo.save(savedPerson);
+		assertThat(updatePerson).isNotEqualTo(savedPerson);	
 	}
 
 }
