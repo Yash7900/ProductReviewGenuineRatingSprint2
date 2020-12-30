@@ -32,14 +32,7 @@ class FeedbackRepositoryTest {
 	@Autowired 
 	private FeedbackRepository feedbackRepo;
 	
-	public Feedback getFeedback()
-	{
-		Feedback feedback=new Feedback();
-		//feedback.setFeedbackId(100);
-		feedback.setFeedbackAbout("Product");
-		feedback.setFeedbackDescription("Good Product");
-		return feedback;
-	}
+	
 	
 	@Test
 	@Rollback(false)
@@ -72,6 +65,15 @@ class FeedbackRepositoryTest {
 		//Feedback deletedFeedback=feedbackRepo.getOne(feedback.getFeedbackId());
 		//Assert.assertNull(deletedFeedback);
 		assertThat(feedback.getFeedbackId()).isZero();
+	}
+	
+	private Feedback getFeedback()
+	{
+		Feedback feedback=new Feedback();
+		//feedback.setFeedbackId(100);
+		feedback.setFeedbackAbout("Product");
+		feedback.setFeedbackDescription("Good Product");
+		return feedback;
 	}
 	
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.prgr.main.entity.Feedback;
 import com.prgr.main.entity.Person;
 import com.prgr.main.entity.Product;
+import com.prgr.main.exception.UserNotFoundException;
 import com.prgr.main.service.FeedbackService;
 import com.prgr.main.service.PersonService;
 import com.prgr.main.service.ProductService;
@@ -74,13 +75,16 @@ public class UserController {
 	 * @return ResponseEntity<Person> 
 	 */
 	@PutMapping("/updateperson")
-	public ResponseEntity<Person> updatePerson(@Valid @RequestBody Person person){
-		Person updtPerson=personService.updatePerson(person);
-		if (updtPerson == null) {
-			return new ResponseEntity("Registration Failed", HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Person>(updtPerson, HttpStatus.OK);
+	public ResponseEntity<Person> updatePerson(@Valid @RequestBody Person person)throws UserNotFoundException{
+		boolean savePerson=personService.getPerson(person.getPersonId());
 		
+		if (savePerson) {
+			Person updtPerson=personService.updatePerson(person);
+			return new ResponseEntity<Person>(updtPerson, HttpStatus.OK);
+		}
+		else {
+			throw new UserNotFoundException("Person cannot be updated, as id "+person.getPersonId()+" not present");
+		}
 	}
 	
 	/**
@@ -126,9 +130,12 @@ public class UserController {
 	 * @param feedback
 	 * @return ResponseEntity<Feedback>
 	 */
-	@PostMapping("/add")
-	public ResponseEntity<Feedback> addFeedback(@RequestBody Feedback feedback) {
+	@PostMapping("/addfeedback")
+	public ResponseEntity<Feedback> addFeedback(@Valid @RequestBody Feedback feedback) {
 		Feedback addFeedback = feedbackService.addFeedback(feedback);
+		if (addFeedback == null) {
+			return new ResponseEntity("Failed to add Feedback", HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<Feedback>(addFeedback,HttpStatus.OK);
 	}
 

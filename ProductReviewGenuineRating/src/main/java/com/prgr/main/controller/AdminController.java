@@ -2,6 +2,8 @@ package com.prgr.main.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.prgr.main.entity.Feedback;
 import com.prgr.main.entity.Person;
 import com.prgr.main.entity.Product;
+import com.prgr.main.exception.FeedbackNotFoundException;
+import com.prgr.main.exception.ProductException;
+import com.prgr.main.exception.UserNotFoundException;
 import com.prgr.main.service.FeedbackService;
 import com.prgr.main.service.PersonService;
 import com.prgr.main.service.ProductService;
@@ -55,12 +60,13 @@ public class AdminController {
 	 * from database by passing control to service by calling getAllPerson()
 	 * @param empty
 	 * @return List<Person> object
+	 * @throws UserNotFoundException 
 	 */
 	@GetMapping("/allusers")
-	public ResponseEntity<List<Person>> getAllPerson() {
+	public ResponseEntity<List<Person>> getAllPerson() throws UserNotFoundException {
 		List<Person> personList = personService.getAllPerson();
 		if (personList.isEmpty()) {
-			return new ResponseEntity("No Person Found.", HttpStatus.NOT_FOUND);
+			throw new UserNotFoundException("No Users Found.");
 		} else {
 			return new ResponseEntity<List<Person>>(personList, HttpStatus.OK);
 		}
@@ -75,11 +81,15 @@ public class AdminController {
 	 */
 
 	@PostMapping(value = "/addproduct")
-	public Product addProduct(@RequestBody Product product) {
-		Product add = productService.addProduct(product);
-		return add;
+	public  ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) throws ProductException {
+		
+		if (product.getProductId()==0&&product.getProductName()!=null&&product.getSellerName()!=null&&product.getCategory()!=null&&product.getDescription()!=null&&product.getPrice()!=0) {
+			return new ResponseEntity<Product>(productService.addProduct(product), HttpStatus.OK);
+		}
+		else {
+			throw new ProductException("Product cannot be added");
+		}
 	}
-
 	/**
 	 * It takes product ID and pass it to the service layer deleteProduct() method.
 	 * @param product Id
@@ -87,10 +97,14 @@ public class AdminController {
 	 */
 	
 	@DeleteMapping(value = "/deleteproduct/{productId}")
-	public Product deleteProduct(@PathVariable("productId") int id) {
-		Product delete = productService.deletProduct(id);
-		return delete;
-	}
+	public  ResponseEntity<Product> deleteProduct(@PathVariable("productId") int id) throws ProductException{
+		if(productService.getProductById(id)!=null) {
+			return new ResponseEntity<Product>( productService.deletProduct(id), HttpStatus.OK);
+		}
+		else {
+			throw new ProductException("Product cannot be deleted, as id "+id+" not present");
+		}
+}
 
 	/**
 	 * It accepts product details from admin and pass it to
@@ -99,10 +113,16 @@ public class AdminController {
 	 * @return Product Object
 	 */
 	@PutMapping(value = "/updateproduct")
-	public Product updateProduct(@RequestBody Product product) {
-		Product update = productService.updateProduct(product);
-		return update;
-	}
+	public ResponseEntity<Product> updateProduct(@RequestBody Product product) throws ProductException{
+		//	Product update = productService.updateProduct(product);
+			if(productService.getProductById(product.getProductId())!=null) {
+				return new ResponseEntity( productService.updateProduct(product),HttpStatus.OK);
+			}
+			else {
+				throw new ProductException("Product could not be updated,as id "+product.getProductId()+" not present");
+			}
+			
+		}
 
 	/**
 	 * It will fetch product details based on id
@@ -111,9 +131,15 @@ public class AdminController {
 	 * @return Product object
 	 */
 	@GetMapping(value = "/getproductbyid/{productId}")
-	public Product getProductById(@PathVariable("productId") int id) {
-		Product product = productService.getProductById(id);
-		return product;
+	public ResponseEntity<Product> getProductById(@PathVariable("productId") int id) throws ProductException {
+		 Product product = productService.getProductById(id);
+			if(productService.getProductById(id)!=null) {
+			 return new ResponseEntity<Product>(product, HttpStatus.OK);
+		 }
+		 else {
+			 throw new ProductException("No Product Found by this id");
+		 }
+			
 	}
 
 	
@@ -124,10 +150,16 @@ public class AdminController {
 	 * @return List<Product> object
 	 */
 	@GetMapping(value = "/getallproduct")
-	public List<Product> getProductList() {
+	public ResponseEntity<List<Product>> getProductList() throws ProductException{
 		List<Product> productList = productService.getProductList();
-		return productList;
+		if (!productList.isEmpty()) {
+			return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
+		} else {
+			throw new ProductException("No Product Found");
+		}		
+		
 	}
+
 
 	/**
 	 * It will fetch all the products based on category
@@ -136,21 +168,31 @@ public class AdminController {
 	 * @return List<Person> object
 	 */
 
-	@GetMapping(value = "/getproductbycategory")
-	public List<Product> getProductByCategory(@RequestParam("category") String category) {
+	@GetMapping(value = "/getproductbycategory/{category}")
+	public  ResponseEntity<List<Product>> getProductByCategory(@PathVariable("category") String category) throws ProductException{
 		List<Product> list = productService.getProductByCategory(category);
-		return list;
+		if (!list.isEmpty()) {
+			return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+		} else {
+			throw new ProductException("No Product Found by this category");
+		}
 	}
 	
 	/**
 	 * This method display all the feedbacks from database.
 	 * @return ResponseEntity<List<Feedback>>
+	 * @throws FeedbackNotFoundException 
 	 */
-	@GetMapping("/getAll")
-	public ResponseEntity<List<Feedback>> getAllFeedback()
+	@GetMapping("/getAllfeedback")
+	public ResponseEntity<List<Feedback>> getAllFeedback() throws FeedbackNotFoundException
 	{
 		List<Feedback> feedbackList=feedbackService.viewAllFeedback();
-		return new ResponseEntity<List<Feedback>>(feedbackList,HttpStatus.OK);
+		if (!feedbackList.isEmpty()) {
+			return new ResponseEntity<List<Feedback>>(feedbackList,HttpStatus.OK);
+		} else {
+			throw new FeedbackNotFoundException("No feedbacks Found");
+		}	
+		
 	}
 	
 	/**
@@ -158,11 +200,17 @@ public class AdminController {
 	 * @param id
 	 * @return ResponseEntity<Feedback>
 	 */
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Feedback> deleteFeedback(@PathVariable("id") Integer feedbackId)
+	@DeleteMapping("/deletefeedback/{id}")
+	public ResponseEntity<Feedback> deleteFeedback(@PathVariable("id") Integer feedbackId)throws FeedbackNotFoundException
 	{
-		Feedback feedback=feedbackService.deleteFeedback(feedbackId);
-		return new ResponseEntity<Feedback>(feedback,HttpStatus.OK);
+		boolean feedbackPresent=feedbackService.getFeedbackById(feedbackId);
+		if(feedbackPresent) {
+			feedbackService.deleteFeedback(feedbackId);
+			return new ResponseEntity("feedback deleted",HttpStatus.OK);
+		}
+		else {
+			throw new FeedbackNotFoundException("Feedback cannot be deleted, as id "+feedbackId+" not present");
+		}
 	}
 
 }

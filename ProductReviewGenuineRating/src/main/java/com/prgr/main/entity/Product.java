@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 //productid, name, category, sellername, rating ,description ,quantity,price.
 @Entity
@@ -16,16 +18,31 @@ public class Product implements Serializable{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "PRODUCT_ID")
 	private int productId;
+	
 	@Column(name = "PRODUCT_NAME")
+	@NotNull
+	@Size(min=2,message="Product name cannot be empty")
 	private String productName;
+	
 	@Column(name = "PRODUCT_CATEGORY")
+	@NotNull
+	@Size(min=2,message="Category cannot be empty")
 	private String category;
+	
 	@Column(name = "SELLER_NAME")
+	@NotNull
+	@Size(min=2,message="Seller cannot be empty")
 	private String sellerName;
+	
 	@Column(name = "PRODUCT_DESCRIPTION")
+	@NotNull
+	@Size(min=2,message="Description cannot be empty")
 	private String description;
+	
 	@Column(name = "PRODUCT_PRICE")
+	@NotNull
 	private Long price;
+
 
 	public Product() {
 

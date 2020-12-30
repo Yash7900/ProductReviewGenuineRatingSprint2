@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "FEEDBACK")
@@ -15,8 +16,10 @@ public class Feedback implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "FEEDBACK_ID")
 	private int feedbackId;
+	@NotNull(message="feedback about cannot be null")
 	@Column(name = "FEEDBACK_ABOUT")
 	private String feedbackAbout;
+	@NotNull(message="feedback description cannot be null")
 	@Column(name = "FEEDBACK_DESCRIPTION")
 	private String feedbackDescription;
 	

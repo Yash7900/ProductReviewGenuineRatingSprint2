@@ -27,7 +27,7 @@ class FeedbackServiceTest {
 	@InjectMocks
 	private FeedbackServiceImpl feedbackService;
 	
-	@MockBean
+	@MockBean 
 	private FeedbackRepository feedbackRepo;
 	
 	@Test

@@ -46,7 +46,7 @@ class PersonRepositoryTest {
 	@Order(1)
 	public void testAddPerson() {
 		Person person=getPerson();
-		Person savePerson=entityManager.persist(person);
+		Person savePerson=personRepo.save(person);
 		Person getPerson=personRepo.getOne(savePerson.getPersonId());
 		
 		assertThat(getPerson).isEqualTo(savePerson);	
@@ -60,11 +60,11 @@ class PersonRepositoryTest {
 	}
 	
 	@Test
-	@Ignore
+	//@Ignore
 	@Order(3)
 	public void updatePerson() {
 		Person person=getPerson();
-		Person savedPerson=personRepo.getOne(person.getPersonId());
+		Person savedPerson=personRepo.getOne(1);
 		savedPerson.setFirstName("ram");
 		Person updatePerson=personRepo.save(savedPerson);
 		assertThat(updatePerson).isNotEqualTo(savedPerson);	

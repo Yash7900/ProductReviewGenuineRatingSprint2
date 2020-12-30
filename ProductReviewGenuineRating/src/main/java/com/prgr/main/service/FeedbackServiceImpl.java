@@ -41,11 +41,19 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 * @return Feedback
 	 */
 	@Override
-	public Feedback deleteFeedback(int feedbackId) {
+	public void deleteFeedback(int feedbackId) {
 		// TODO Auto-generated method stub
 		feedbackRepo.deleteById(feedbackId);
-		Feedback feedback=feedbackRepo.getOne(feedbackId);
-		return feedback;
+		//Feedback feedback=feedbackRepo.getOne(feedbackId);
+		
+	}
+	@Override
+	public boolean getFeedbackById(int feedbackId) {
+		// TODO Auto-generated method stub
+		if(feedbackRepo.findById(feedbackId).isPresent()) {
+			return true;
+		}
+	return false;
 	}
 
 	

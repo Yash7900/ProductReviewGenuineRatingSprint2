@@ -17,5 +17,22 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
 		
 	}
-
+	
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<?> UserNotFoundErrorHandling(UserNotFoundException exception){
+		ErrorDetails errorDetails=new ErrorDetails(new Date(), "Updating details Failed", exception.getMessage());
+		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ProductException.class)
+	public ResponseEntity<?> ProductErrorHandling(ProductException exception){
+		ErrorDetails errorDetails=new ErrorDetails(new Date(), "Product Error", exception.getMessage());
+		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(FeedbackNotFoundException.class)
+	public ResponseEntity<?> feedbackNotFoundErrorHandling(FeedbackNotFoundException exception){
+		ErrorDetails errorDetails=new ErrorDetails(new Date(), "Deleting of Feedback failed", exception.getMessage());
+		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
+	}
 }

@@ -43,4 +43,6 @@ public interface PersonService {
 	 * @return  List<Person>
 	 */
 	public List<Person> getAllPerson();
+	
+	public boolean getPerson(int personId);
 }

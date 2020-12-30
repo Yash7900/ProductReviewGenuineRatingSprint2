@@ -23,6 +23,8 @@ public interface FeedbackService {
 	 * @param 
 	 * @return Feedback
 	 */
-	public Feedback deleteFeedback(int feedbackId);
+	public void deleteFeedback(int feedbackId);
+	
+	public boolean getFeedbackById(int feedbackId);
 
 }

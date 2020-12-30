@@ -80,4 +80,13 @@ public class PersonServiceImpl implements PersonService{
 		}
 	}
 
+	@Override
+	public boolean getPerson(int personId) {
+		// TODO Auto-generated method stub
+			if(personRepo.findById(personId).isPresent()) {
+				return true;
+			}
+		return false;
+	}
+
 }
