@@ -31,6 +31,11 @@ import com.prgr.main.service.ReviewService;
 
 @RestController
 @RequestMapping("/prgr/user")
+/**
+ * User Controller class
+ * @author YASH
+ *
+ */
 public class UserController {
 	private static final Logger logger=LoggerFactory.getLogger(UserController.class);
 	@Autowired

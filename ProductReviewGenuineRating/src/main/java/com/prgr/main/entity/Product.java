@@ -17,6 +17,11 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "PRODUCT")
+/**
+ * Products Entity class
+ * @author YASH
+ *
+ */
 public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

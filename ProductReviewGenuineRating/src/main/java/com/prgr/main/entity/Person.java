@@ -9,13 +9,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "PERSON")
+/**
+ * Person Entity Class
+ * @author YASH
+ *
+ */
 public class Person implements Serializable{
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)

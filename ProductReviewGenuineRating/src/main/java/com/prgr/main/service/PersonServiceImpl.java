@@ -8,12 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.prgr.main.controller.AdminController;
 import com.prgr.main.entity.Person;
 import com.prgr.main.repository.PersonRepository;
 
 @Service
 @Transactional
+/**
+ * PersonServiceImpl class
+ * @author YASH
+ *
+ */
 public class PersonServiceImpl implements PersonService{
 	private static final Logger logger=LoggerFactory.getLogger(PersonServiceImpl.class);
 	@Autowired

@@ -19,6 +19,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "REVIEW")
+/**
+ * Review Entity Class
+ * @author YASH
+ *
+ */
 public class Review implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

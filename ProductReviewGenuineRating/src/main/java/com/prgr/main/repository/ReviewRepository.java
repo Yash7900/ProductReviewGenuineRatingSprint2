@@ -7,7 +7,18 @@ import com.prgr.main.entity.Review;
 
 public interface ReviewRepository extends JpaRepository<Review,Integer> {
 
+	/**
+	 * This method find review for product
+	 * @param reviewId
+	 * @param product
+	 * @return
+	 */
 	public Review findByReviewIdAndProduct(int reviewId,Product product);
-
+/**
+ * This method find review given by user for a product
+ * @param userId
+ * @param product
+ * @return
+ */
 	public Review findByUserIdAndProduct(int userId,Product product);
 }

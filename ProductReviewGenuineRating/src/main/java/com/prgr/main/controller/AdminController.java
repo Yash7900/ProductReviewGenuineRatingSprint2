@@ -2,7 +2,6 @@ package com.prgr.main.controller;
 
 import java.util.List;
 
-
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.prgr.main.entity.Feedback;
 import com.prgr.main.entity.Person;
 import com.prgr.main.entity.Product;
@@ -35,6 +33,11 @@ import com.prgr.main.service.ReviewService;
 
 @RestController
 @RequestMapping("/prgr/admin")
+/**
+ * Admin Controller Class
+ * @author YASH
+ *
+ */
 public class AdminController {
 	private static final Logger logger=LoggerFactory.getLogger(AdminController.class);
 	@Autowired
@@ -248,7 +251,7 @@ public class AdminController {
 	 * @throws ReviewNotFoundException
 	 */
 	@DeleteMapping("/deletereview/{productid}")
-	public ResponseEntity<Feedback> deleteReviewForProduct(@PathVariable("productid") Integer productId,@RequestParam Integer reviewId)throws ReviewNotFoundException
+	public ResponseEntity<String> deleteReviewForProduct(@PathVariable("productid") Integer productId,@RequestParam Integer reviewId)throws ReviewNotFoundException
 	{
 		logger.info("admin delete review of product");
 		boolean reviewPresent=reviewService.deleteReviewForProduct(reviewId, productId);

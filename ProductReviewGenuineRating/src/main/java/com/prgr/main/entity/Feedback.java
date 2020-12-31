@@ -11,6 +11,11 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "FEEDBACK")
+/**
+ * Feedback entity class
+ * @author YASH
+ *
+ */
 public class Feedback implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

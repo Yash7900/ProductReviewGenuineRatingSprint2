@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.prgr.main.controller.AdminController;
 import com.prgr.main.entity.Product;
 import com.prgr.main.entity.Review;
 import com.prgr.main.repository.ProductRepository;
@@ -16,6 +15,11 @@ import com.prgr.main.repository.ReviewRepository;
 
 @Service
 @Transactional
+/**
+ * ReviewServiceImpl class
+ * @author YASH
+ *
+ */
 public class ReviewServiceImpl implements ReviewService {
 	private static final Logger logger=LoggerFactory.getLogger(ReviewServiceImpl.class);
 	@Autowired
