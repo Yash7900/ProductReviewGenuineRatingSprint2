@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.prgr.main.entity.Product;
 import com.prgr.main.repository.ProductRepository;
+import com.prgr.main.toc.CompareProduct;
 
 @Transactional
 @Service
@@ -111,6 +112,26 @@ public class ProductServiceImpl implements ProductService {
 		logger.info("view product based on category");
 		List<Product> product = productRepo.findAllByCategory(category);
 		return product;
+	}
+
+	@Override
+	/**
+	 * This method compare two products based on same category and fetch them from repository and gives the
+	 * two products to CompareProduct transfer object.
+	 * @param category
+	 * @param productId1
+	 * @param productId2
+	 * @return CompareProduct
+	 */
+
+	public CompareProduct compareTwoProductBasedOnCategory(String category, int productId1, int productId2) {
+		// TODO Auto-generated method stub
+		Product product1=productRepo.findByCategoryAndProductId(category,productId1);
+		Product product2=productRepo.findByCategoryAndProductId(category,productId2);
+		CompareProduct compareProduct=new CompareProduct();
+		compareProduct.setProduct1(product1);
+		compareProduct.setProduct2(product2);
+		return compareProduct;
 	}
 
 }

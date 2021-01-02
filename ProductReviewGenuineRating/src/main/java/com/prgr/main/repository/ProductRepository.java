@@ -14,4 +14,12 @@ public interface ProductRepository extends JpaRepository<Product,Integer>{
 	 * @return
 	 */
 	public List<Product> findAllByCategory(String category);
+	/**
+	 * This method find a product based on category 
+	 * provided.
+	 * @param category
+	 * @param productId
+	 * @return product
+	 */
+	public Product findByCategoryAndProductId(String category,int productId);
 }

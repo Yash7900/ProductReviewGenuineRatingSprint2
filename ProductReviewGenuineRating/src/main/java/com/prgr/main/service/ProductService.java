@@ -3,6 +3,7 @@ package com.prgr.main.service;
 import java.util.List;
 
 import com.prgr.main.entity.Product;
+import com.prgr.main.toc.CompareProduct;
 
 public interface ProductService {
 	
@@ -48,6 +49,13 @@ public interface ProductService {
 	 * @return  List<Product>
 	 */
 	public List<Product> getProductByCategory(String category);
-	
-	
+	/**
+	 * This method compare two products based on same category and fetch them from repository and gives the
+	 * two products to CompareProduct transfer object.
+	 * @param category
+	 * @param productId1
+	 * @param productId2
+	 * @return CompareProduct
+	 */
+	public CompareProduct compareTwoProductBasedOnCategory(String category,int productId1,int productId2);
 }

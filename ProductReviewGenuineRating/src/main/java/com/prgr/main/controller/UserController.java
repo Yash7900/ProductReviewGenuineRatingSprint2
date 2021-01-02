@@ -28,6 +28,7 @@ import com.prgr.main.service.FeedbackService;
 import com.prgr.main.service.PersonService;
 import com.prgr.main.service.ProductService;
 import com.prgr.main.service.ReviewService;
+import com.prgr.main.toc.CompareProduct;
 
 @RestController
 @RequestMapping("/prgr/user")
@@ -205,6 +206,18 @@ public class UserController {
 		else {
 			logger.info("You have already given review for this product");
 			return new ResponseEntity("You have already given review for this product",HttpStatus.OK);
+		}
+	
+	}
+	@GetMapping("/compareproduct/product1/product2/category")
+	public ResponseEntity<CompareProduct> compareTwoProductBasedOnCategory(@RequestParam int productId1,@RequestParam int productId2,@RequestParam String category) throws ProductException {
+		CompareProduct compareProducts=productService.compareTwoProductBasedOnCategory(category, productId1, productId2);
+		if(compareProducts.getProduct1()!=null && compareProducts.getProduct2()!=null) {
+			return new ResponseEntity<CompareProduct>(compareProducts,HttpStatus.OK);
+		}
+		else {
+			logger.error("No Product Found by this category");
+			throw new ProductException("No Product Found by this category");
 		}
 	}
 
