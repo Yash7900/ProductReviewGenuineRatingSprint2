@@ -77,18 +77,25 @@ public class UserController {
 	 * @throws UserNotFoundException 
 	 */
 	@GetMapping("/login")
-	public ResponseEntity<String> adminLogin(@RequestParam("email")String email,@RequestParam("password")String password){
-		boolean login=personService.loginPerson(email, password);
-		logger.info("user Login");
-		if(login) {
-			logger.info("user Login Successful");
-			return new ResponseEntity<String>("Login Successful", HttpStatus.OK);
-			
+	public ResponseEntity<String> UserLogin(@RequestParam("userId")int userId,@RequestParam("emailId")String email,@RequestParam("password")String password) throws UserNotFoundException{
+		if(personService.getPerson(userId)) {
+			boolean login=personService.loginPerson(userId,email, password);
+			logger.info("user Login");
+			if(login) {
+				logger.info("user Login Successful");
+				return new ResponseEntity<String>("Login Successful", HttpStatus.OK);
+				
+			}
+			else {
+				logger.info("user Login Failed");
+				return new ResponseEntity<String>("Check your emailId and password", HttpStatus.NOT_FOUND);
+			}	
 		}
 		else {
-			logger.info("user Login Failed");
-			return new ResponseEntity<String>("Login Failed", HttpStatus.NOT_FOUND);
+			logger.error("User Not Found");
+			throw new UserNotFoundException("Person cannot be logged, as id "+userId+" not present");
 		}
+	
 	}
 	/**
 	 * It accepts details from user and pass it to

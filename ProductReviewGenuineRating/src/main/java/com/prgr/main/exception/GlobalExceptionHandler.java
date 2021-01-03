@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(UserNotFoundException.class)
 	public ResponseEntity<?> userNotFoundErrorHandling(UserNotFoundException exception){
-		ErrorDetails errorDetails=new ErrorDetails(new Date(), "Updating details Failed", exception.getMessage());
+		ErrorDetails errorDetails=new ErrorDetails(new Date(), "User Error", exception.getMessage());
 		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
 	}
 	
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(ReviewNotFoundException.class)
 	public ResponseEntity<?> reviewNotFoundErrorHandling(ReviewNotFoundException exception){
-		ErrorDetails errorDetails=new ErrorDetails(new Date(), "Deleting of review failed", exception.getMessage());
+		ErrorDetails errorDetails=new ErrorDetails(new Date(), "Review Error", exception.getMessage());
 		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
 	}
 }

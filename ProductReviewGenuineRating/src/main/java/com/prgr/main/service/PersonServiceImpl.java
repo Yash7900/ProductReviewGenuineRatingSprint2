@@ -79,10 +79,10 @@ public class PersonServiceImpl implements PersonService{
 	 * @throws UserNotFoundException 
 	 */
 	@Override
-	public boolean loginPerson(String email, String password) {
+	public boolean loginPerson(int userId,String email, String password) {
 		logger.info("Person login");
 		// TODO Auto-generated method stub
-		Person person=personRepo.findByEmailId(email);
+		Person person=personRepo.getOne(userId);
 		if(person.getEmailId().equals(email) && person.getPassword().equals(password)) {
 			return true;
 		}
