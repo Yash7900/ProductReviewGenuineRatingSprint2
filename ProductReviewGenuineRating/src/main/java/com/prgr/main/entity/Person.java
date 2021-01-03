@@ -17,12 +17,12 @@ import javax.validation.constraints.Size;
 @Table(name = "PERSON")
 /**
  * Person Entity Class
- * @author YASH
+ * @author Aswathy
  *
  */
 public class Person implements Serializable{
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="PERSON_ID")
 	private int personId;
 	
@@ -39,10 +39,12 @@ public class Person implements Serializable{
 	
 	@Column(name = "PERSON_ADDRESS")
 	@NotNull
+	@Size(min=2,max=50,message="Enter Valid Address")
 	private String address;
 	
 	@Column(name = "PERSON_PHONE")
-	//@Pattern(regexp="^[0-9]{6}",message="Enter Valid Phone number.")
+	//@Pattern(regexp="^[0-9]{10}",message="Enter Valid Phone number.")
+	@NotNull
 	private Long phoneNumber;
 	
 	

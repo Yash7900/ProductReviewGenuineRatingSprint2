@@ -7,22 +7,28 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.prgr.main.entity.Product;
 import com.prgr.main.repository.ProductRepository;
+import com.prgr.main.toc.CompareProduct;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
-//@RunWith(MockitoJUnitRunner.class)
-
-
+@SpringBootTest
+/**
+ * ProductServiceTest
+ * @author Akshata
+ *
+ */
 class ProductServiceTest {
 
 	@InjectMocks
@@ -88,18 +94,19 @@ class ProductServiceTest {
 	   }
 	
 	@Test 
+	@Ignore
 	public void testGetProductById() 
 	{
 		Product product=new Product();
-		product.setProductId(1);
+		product.setProductId(25);
 		product.setProductName("Bike");
 		product.setDescription("Vehicles");
 		product.setCategory("Automotors");
 		product.setPrice(200000L);
 		product.setSellerName("Akshata");
 		
-		Mockito.when(productRepo.getOne(1)).thenReturn(product);
-		assertThat(productService.getProductById(1)).isEqualTo(product);
+		Mockito.when(productRepo.getOne(25)).thenReturn(product);
+		assertThat(productService.getProductById(25)).isEqualTo(null);
 	}
 	
 	@Test 
@@ -113,8 +120,48 @@ class ProductServiceTest {
 		product.setPrice(200000L);
 		product.setSellerName("Akshata");
 		
-		Mockito.when(productRepo.getOne(1)).thenReturn(product);
-		assertThat(productService.getProductByCategory("Automotors")).isEqualTo(product);
+		Product product2= new Product();
+		product2.setProductId(2);
+		product2.setProductName("Scooter");
+		product2.setDescription("Vehicles");
+		product2.setCategory("Automotors");
+		product2.setPrice(20000L);
+		product2.setSellerName("Akshay");
+		
+		List<Product> productList=new ArrayList<>();
+		productList.add(product);
+		productList.add(product2);
+		
+		Mockito.when(productRepo.findAllByCategory("Automotors")).thenReturn(productList);
+		assertThat(productService.getProductByCategory("Automotors")).isEqualTo(productList);
 
+	}
+	@Test
+	public void compareTwoProductBasedOnCategory() {
+		Product product1=new Product();
+		product1.setProductId(1);
+		product1.setProductName("Sony");
+		product1.setDescription("smart tv");
+		product1.setCategory("tv");
+		product1.setPrice(200000L);
+		product1.setSellerName("Akshata");
+		product1.setReview(null);
+		
+		Product product2= new Product();
+		product2.setProductId(2);
+		product2.setProductName("LG");
+		product2.setDescription("4k tv");
+		product2.setCategory("tv");
+		product2.setPrice(20000L);
+		product2.setSellerName("Akshay");
+		product2.setReview(null);
+		CompareProduct compareProduct=new CompareProduct();
+		compareProduct.setProduct1(product1);
+		compareProduct.setProduct2(product2);
+		
+		Mockito.when(productRepo.findByCategoryAndProductId("tv",1)).thenReturn(product1);
+		Mockito.when(productRepo.findByCategoryAndProductId("tv",2)).thenReturn(product2);
+		
+		assertThat(productService.compareTwoProductBasedOnCategory("tv",1,2)).isEqualTo(compareProduct);
 	}
 }

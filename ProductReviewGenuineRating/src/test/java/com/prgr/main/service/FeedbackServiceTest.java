@@ -20,8 +20,12 @@ import com.prgr.main.repository.FeedbackRepository;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
-//@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
+/**
+ * FeedbackServiceTest
+ * @author Siddhi
+ *
+ */
 class FeedbackServiceTest {
 	
 	@InjectMocks

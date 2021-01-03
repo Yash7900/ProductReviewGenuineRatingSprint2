@@ -23,8 +23,12 @@ import com.prgr.main.repository.ReviewRepository;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
-//@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
+/**
+ * ReviewServiceTest
+ * @author Ekta
+ *
+ */
 public class ReviewServiceTest {
 
 	@InjectMocks
@@ -42,7 +46,7 @@ public class ReviewServiceTest {
 		Product product = new Product();
 		review.setUserId(1);
 		review.setRate(5);
-		review.setDescrption("Good");
+		review.setDescription("Good");
 		product.setProductId(1);
 		review.setProduct(product);
 		Review rev=reviewRepo.save(review); 
@@ -76,11 +80,11 @@ public class ReviewServiceTest {
 	public void testViewAllReview() {
 		Review review = new Review();
 		review.setRate(5);
-		review.setDescrption("Good");
+		review.setDescription("Good");
 
 		Review review2 = new Review();
 		review2.setRate(2);
-		review2.setDescrption("Bad");
+		review2.setDescription("Bad");
 
 		List<Review> reviewList = new ArrayList<>();
 		reviewList.add(review);

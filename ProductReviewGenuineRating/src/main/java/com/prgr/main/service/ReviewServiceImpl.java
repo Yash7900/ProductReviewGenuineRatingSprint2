@@ -17,7 +17,7 @@ import com.prgr.main.repository.ReviewRepository;
 @Transactional
 /**
  * ReviewServiceImpl class
- * @author YASH
+ * @author Nisha
  *
  */
 public class ReviewServiceImpl implements ReviewService {
@@ -70,7 +70,7 @@ public class ReviewServiceImpl implements ReviewService {
 		Review rev=new Review();
 		rev.setUserId(userId);
 		rev.setRate(review.getRate());
-		rev.setDescrption(review.getDescrption());
+		rev.setDescription(review.getDescription());
 		rev.setProduct(product);
 		Review addReview= reviewRepo.save(rev);
 		return addReview;

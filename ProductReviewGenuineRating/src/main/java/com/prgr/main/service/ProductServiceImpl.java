@@ -16,7 +16,7 @@ import com.prgr.main.toc.CompareProduct;
 @Service
 /**
  * ProductServiceImpl class
- * @author YASH
+ * @author Ekta
  *
  */
 public class ProductServiceImpl implements ProductService {

@@ -3,6 +3,7 @@ package com.prgr.main.service;
 import java.util.List;
 
 import com.prgr.main.entity.Person;
+import com.prgr.main.exception.UserNotFoundException;
 
 public interface PersonService {
 	
@@ -20,6 +21,7 @@ public interface PersonService {
 	 * @param username
 	 * @param password
 	 * @return boolean(T/F)
+	 * @throws UserNotFoundException 
 	 */
 	public boolean loginPerson(String email,String password);
 	/**

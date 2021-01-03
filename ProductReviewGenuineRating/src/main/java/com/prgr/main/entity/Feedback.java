@@ -8,12 +8,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "FEEDBACK")
 /**
  * Feedback entity class
- * @author YASH
+ * @author Siddhi
  *
  */
 public class Feedback implements Serializable {
@@ -21,11 +22,13 @@ public class Feedback implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "FEEDBACK_ID")
 	private int feedbackId;
-	@NotNull(message="feedback about cannot be null")
 	@Column(name = "FEEDBACK_ABOUT")
+	@NotNull
+	@Size(min=2,max=20,message="feedback about cannot be null")
 	private String feedbackAbout;
-	@NotNull(message="feedback description cannot be null")
 	@Column(name = "FEEDBACK_DESCRIPTION")
+	@NotNull
+	@Size(min=2,max=50,message="feedback description cannot be null")
 	private String feedbackDescription;
 	
 	public Feedback()

@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -23,23 +21,19 @@ import com.prgr.main.entity.Person;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace=Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
+/**
+ * PersonRepositoryTest
+ * @author YASH
+ *
+ */
 class PersonRepositoryTest {
 	
-	@Autowired
-	private TestEntityManager entityManager;
+//	@Autowired
+//	private TestEntityManager entityManager;
 	@Autowired
 	private PersonRepository personRepo;
 	
-	public Person getPerson() {
-		Person person=new Person();
-		person.setFirstName("yash");
-		person.setLastName("varadkar");
-		person.setAddress("amboli");
-		person.setPhoneNumber(983356549);
-		person.setEmailId("yash@email.com");
-		person.setPassword("yash08");
-		return person;
-	}
+	
 
 	@Test
 	@Rollback(false)
@@ -60,14 +54,23 @@ class PersonRepositoryTest {
 	}
 	
 	@Test
-	//@Ignore
 	@Order(3)
 	public void updatePerson() {
 		Person person=getPerson();
-		Person savedPerson=personRepo.getOne(1);
-		savedPerson.setFirstName("ram");
+		Person savedPerson=personRepo.save(person);
+		savedPerson.setFirstName("sam");
 		Person updatePerson=personRepo.save(savedPerson);
-		assertThat(updatePerson).isNotEqualTo(savedPerson);	
+		assertThat(updatePerson).isEqualTo(savedPerson);	
 	}
-
+	public Person getPerson() {
+		Person person=new Person();
+		person.setFirstName("yash");
+		person.setLastName("varadkar");
+		person.setAddress("amboli");
+		person.setPhoneNumber(983356549);
+		person.setEmailId("yash@email.com");
+		person.setPassword("yash08");
+		person.setRole("user");
+		return person;
+	}
 }

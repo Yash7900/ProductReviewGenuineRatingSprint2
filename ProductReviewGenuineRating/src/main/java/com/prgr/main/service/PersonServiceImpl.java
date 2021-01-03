@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prgr.main.entity.Person;
+import com.prgr.main.exception.UserNotFoundException;
 import com.prgr.main.repository.PersonRepository;
 
 @Service
@@ -75,6 +76,7 @@ public class PersonServiceImpl implements PersonService{
 	 * @param username
 	 * @param password
 	 * @return boolean(T/F)
+	 * @throws UserNotFoundException 
 	 */
 	@Override
 	public boolean loginPerson(String email, String password) {
@@ -85,7 +87,7 @@ public class PersonServiceImpl implements PersonService{
 			return true;
 		}
 		else {
-		return false;
+			return false;
 		}
 	}
 

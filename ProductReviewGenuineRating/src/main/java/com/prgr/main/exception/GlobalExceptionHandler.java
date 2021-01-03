@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(FeedbackNotFoundException.class)
 	public ResponseEntity<?> feedbackNotFoundErrorHandling(FeedbackNotFoundException exception){
-		ErrorDetails errorDetails=new ErrorDetails(new Date(), "Deleting of Feedback failed", exception.getMessage());
+		ErrorDetails errorDetails=new ErrorDetails(new Date(), "Feedback Error", exception.getMessage());
 		return new ResponseEntity<>(errorDetails,HttpStatus.BAD_REQUEST);
 	}
 	

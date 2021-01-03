@@ -74,9 +74,10 @@ public class UserController {
 	 * and pass that credentials to service layer loginPerson() method.
 	 * @param 
 	 * @return  ResponseEntity<String>
+	 * @throws UserNotFoundException 
 	 */
 	@GetMapping("/login")
-	public ResponseEntity<String> adminLogin(@RequestParam("email")String email,@RequestParam("password")String password) {
+	public ResponseEntity<String> adminLogin(@RequestParam("email")String email,@RequestParam("password")String password){
 		boolean login=personService.loginPerson(email, password);
 		logger.info("user Login");
 		if(login) {
@@ -158,7 +159,7 @@ public class UserController {
 	 * @return List<Person> object
 	 */
 
-	@GetMapping(value = "/getproductbycategory")
+	@GetMapping(value = "/getproductbycategory/{category}")
 	public  ResponseEntity<List<Product>> getProductByCategory(@PathVariable("category") String category) throws ProductException{
 		logger.info("User views products by category");
 		List<Product> list = productService.getProductByCategory(category);

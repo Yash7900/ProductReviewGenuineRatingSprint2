@@ -131,7 +131,7 @@ public class AdminController {
 	 * @return Product Object
 	 */
 	@PutMapping(value = "/updateproduct")
-	public ResponseEntity<Product> updateProduct(@RequestBody Product product) throws ProductException{
+	public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product) throws ProductException{
 		//	Product update = productService.updateProduct(product);
 		logger.info("admin updates product");
 			if(productService.getProductById(product.getProductId())!=null) {

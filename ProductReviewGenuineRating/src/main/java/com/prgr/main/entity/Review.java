@@ -21,12 +21,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "REVIEW")
 /**
  * Review Entity Class
- * @author YASH
+ * @author Nisha
  *
  */
 public class Review implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "REVIEW_ID")
 	private int reviewId;
 	@Column(name = "USER_ID")
@@ -93,11 +93,11 @@ public class Review implements Serializable {
 		this.rate = rate;
 	}
 
-	public String getDescrption() {
+	public String getDescription() {
 		return description;
 	}
 
-	public void setDescrption(String description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
@@ -111,7 +111,7 @@ public class Review implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Review [reviewId=" + reviewId + ", userId=" + userId + ", rate=" + rate + ", descrption=" + description
+		return "Review [reviewId=" + reviewId + ", userId=" + userId + ", rate=" + rate + ", description=" + description
 				+ ", product=" + product + "]";
 	}
 

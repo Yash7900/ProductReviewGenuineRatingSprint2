@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -21,6 +22,12 @@ import com.prgr.main.repository.PersonRepository;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
+@SpringBootTest
+/**
+ * PersonServiceTest
+ * @author Siddhi
+ *
+ */
 class PersonServiceTest {
 
 	@InjectMocks
@@ -103,7 +110,7 @@ class PersonServiceTest {
 	}
 	
 	@Test
-	public void testLoginPerson()
+	public void testLoginPerson() 
 	{
 		Person person=new Person();
 		person.setFirstName("Siddhi");

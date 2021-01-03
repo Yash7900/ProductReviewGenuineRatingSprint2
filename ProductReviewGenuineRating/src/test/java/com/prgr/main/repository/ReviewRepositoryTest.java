@@ -24,16 +24,20 @@ import com.prgr.main.entity.Review;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @TestMethodOrder(OrderAnnotation.class)
+/**
+ * ReviewRepositoryTest
+ * @author Ekta
+ *
+ */
 public class ReviewRepositoryTest {
+
 
 	@Autowired
 	private TestEntityManager entityManager;
 	@Autowired
 	private ReviewRepository reviewRepo;
 
-	@Autowired
-	private ProductRepository productRepo;
-
+	
 	@Test
 	@Rollback(false)
 	@Order(1)
@@ -75,10 +79,9 @@ public class ReviewRepositoryTest {
 		Product product = new Product();
 		review.setUserId(1);
 		review.setRate(5);
-		review.setDescrption("Good");
+		review.setDescription("Good");
 		product.setProductId(1);
 		review.setProduct(product);
 		return review;
 	}
-
 }

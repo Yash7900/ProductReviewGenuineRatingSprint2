@@ -19,12 +19,12 @@ import javax.validation.constraints.Size;
 @Table(name = "PRODUCT")
 /**
  * Products Entity class
- * @author YASH
+ * @author Akshata
  *
  */
 public class Product implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PRODUCT_ID")
 	private int productId;
 
