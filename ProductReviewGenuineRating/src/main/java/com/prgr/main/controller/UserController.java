@@ -202,10 +202,12 @@ public class UserController {
 	 * @param productId
 	 * @param review
 	 * @return ResponseEntity<Review> 
+	 * @throws ProductException 
 	 */
 	@PostMapping("/addreviewforproduct/{userid}/product/{productid}")
-	public ResponseEntity<Review> addReviewForProduct(@PathVariable("userid")int userId,@PathVariable("productid")int productId,@Valid @RequestBody Review review) {
+	public ResponseEntity<Review> addReviewForProduct(@PathVariable("userid")int userId,@PathVariable("productid")int productId,@Valid @RequestBody Review review) throws ProductException {
 		logger.info("User adds Review For product");
+		if(productService.getProductById(productId)!=null) {
 		boolean checkReview=reviewService.findByUserIdAndProdId(userId, productId);
 		if(checkReview) {
 		Review addReview = reviewService.addReviewForProduct(review,productId,userId);
@@ -215,10 +217,16 @@ public class UserController {
 			logger.info("You have already given review for this product");
 			return new ResponseEntity("You have already given review for this product",HttpStatus.OK);
 		}
+		}
+		else {
+			logger.error("No Product Found");
+			throw new ProductException("No Product Found");
+		}
 	
 	}
 	@GetMapping("/compareproduct/product1/product2/category")
 	public ResponseEntity<CompareProduct> compareTwoProductBasedOnCategory(@RequestParam int productId1,@RequestParam int productId2,@RequestParam String category) throws ProductException {
+		if(productService.getProductById(productId1)!=null && productService.getProductById(productId2)!=null) {
 		CompareProduct compareProducts=productService.compareTwoProductBasedOnCategory(category, productId1, productId2);
 		if(compareProducts.getProduct1()!=null && compareProducts.getProduct2()!=null) {
 			return new ResponseEntity<CompareProduct>(compareProducts,HttpStatus.OK);
@@ -226,6 +234,11 @@ public class UserController {
 		else {
 			logger.error("No Product Found by this category");
 			throw new ProductException("No Product Found by this category");
+		}
+	}
+		else {
+			logger.error("No Product Found");
+			throw new ProductException("No Product Found by the given Id.");
 		}
 	}
 

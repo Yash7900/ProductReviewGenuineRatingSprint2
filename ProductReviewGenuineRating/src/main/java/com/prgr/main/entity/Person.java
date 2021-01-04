@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -17,45 +18,45 @@ import javax.validation.constraints.Size;
 @Table(name = "PERSON")
 /**
  * Person Entity Class
+ * 
  * @author Aswathy
  *
  */
-public class Person implements Serializable{
+public class Person implements Serializable {
 	@Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="PERSON_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PERSON_ID")
 	private int personId;
-	
+
 	@Column(name = "PERSON_FIRST_NAME")
 	@NotNull
-	@Size(min=2,max=15,message="Enter Valid First_Name")
+	@Size(min = 2, max = 15, message = "Enter Valid First_Name")
 	private String firstName;
-	
+
 	@Column(name = "PERSON_LAST_NAME")
 	@NotNull
-	@Size(min=2,max=15,message="Enter Valid Last_Name")
+	@Size(min = 2, max = 15, message = "Enter Valid Last_Name")
 	private String lastName;
-	
-	
+
 	@Column(name = "PERSON_ADDRESS")
 	@NotNull
-	@Size(min=2,max=50,message="Enter Valid Address")
+	@Size(min = 2, max = 50, message = "Enter Valid Address")
 	private String address;
-	
+
 	@Column(name = "PERSON_PHONE")
-	//@Pattern(regexp="^[0-9]{10}",message="Enter Valid Phone number.")
+	// @Pattern(regexp="^[0-9]{10}",message="Enter Valid Phone number.")
 	@NotNull
+	@Digits(integer=10,fraction=0,message="Enter Valid PhoneNumber.")
 	private Long phoneNumber;
-	
-	
+
 	@Column(name = "PERSON_EMAIL_ID")
 	@Email
 	private String emailId;
-	
+
 	@Column(name = "PERSON_Password")
-	@Pattern(regexp="^[a-zA-Z0-9]{6}",message="Password length must be 6")  
+	@Pattern(regexp = "^[a-zA-Z0-9]{6}", message = "Password length must be 6")
 	private String password;
-	
+
 	@Column(name = "PERSON_ROLE")
 	private String role;
 
@@ -63,11 +64,8 @@ public class Person implements Serializable{
 
 	}
 
-	
-
-	public Person(int personId, String firstName, String lastName,
-			String address, Long phoneNumber, String emailId, String password,
-			String role) {
+	public Person(int personId, String firstName, String lastName, String address, Long phoneNumber, String emailId,
+			String password, String role) {
 		super();
 		this.personId = personId;
 		this.firstName = firstName;
@@ -78,8 +76,6 @@ public class Person implements Serializable{
 		this.password = password;
 		this.role = role;
 	}
-
-
 
 	public int getPersonId() {
 		return personId;
@@ -147,9 +143,8 @@ public class Person implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Person [personId=" + personId + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", phoneNumber=" + phoneNumber
-				+ ", password=" + password + ", role=" + role + "]";
+		return "Person [personId=" + personId + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
+				+ phoneNumber + ", password=" + password + ", role=" + role + "]";
 	}
 
 }

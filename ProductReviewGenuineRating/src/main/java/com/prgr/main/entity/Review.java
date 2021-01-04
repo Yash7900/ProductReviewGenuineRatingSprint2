@@ -32,7 +32,7 @@ public class Review implements Serializable {
 	@Column(name = "USER_ID")
 	private int userId;
 	@Column(name = "REVIEW_RATE")
-	@Min(value = 1, message = "Rating should not be less than 0")
+	@Min(value = 0, message = "Rating should not be less than 0")
     @Max(value = 5, message = "Rating should not be greater than 5")
 	private int rate;
 	@Column(name = "REVIEW_DESCRIPTION")

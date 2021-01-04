@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -32,8 +31,7 @@ import com.prgr.main.entity.Review;
 public class ReviewRepositoryTest {
 
 
-	@Autowired
-	private TestEntityManager entityManager;
+	
 	@Autowired
 	private ReviewRepository reviewRepo;
 
@@ -41,7 +39,7 @@ public class ReviewRepositoryTest {
 	@Test
 	@Rollback(false)
 	@Order(1)
-	public void testsaveReview() {
+	public void testAddReview() {
 		Review review = getReview();
 		Review saveReview = reviewRepo.save(review);
 		Review getReview = reviewRepo.getOne(saveReview.getReviewId());
@@ -52,22 +50,24 @@ public class ReviewRepositoryTest {
 	@Order(2)
 	public void testDeleteReview() {
 		Review review = getReview();
-		entityManager.remove(review);
-		assertThat(review.getReviewId()).isZero();
+		Review saveReview=reviewRepo.save(review);
+		reviewRepo.delete(saveReview);
+		assertThat(saveReview).isNotNull();
+		
 	}
 
 	@Test
 	@Order(3)
-	public void testgetAllReview() {
+	public void testGetAllReview() {
 		List<Review> reviewList = reviewRepo.findAll();
 		assertThat(reviewList).size().isGreaterThan(0);
 	}
 
 	@Test
 	@Order(4)
-	public void testfindByReviewIdAndProduct() {
+	public void testFindByReviewIdAndProduct() {
 		Review review = getReview();
-		entityManager.persist(review);
+		reviewRepo.save(review);
 		Review foundReview = reviewRepo.findById(review.getReviewId()).get();
 		assertThat(foundReview).isEqualTo(review);
 	}
@@ -75,7 +75,6 @@ public class ReviewRepositoryTest {
 
 	public Review getReview() {
 		Review review = new Review();
-		// review.setReviewId(2);
 		Product product = new Product();
 		review.setUserId(1);
 		review.setRate(5);
