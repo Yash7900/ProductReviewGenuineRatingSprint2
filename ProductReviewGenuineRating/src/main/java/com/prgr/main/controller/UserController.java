@@ -38,7 +38,7 @@ import com.prgr.main.toc.CompareProduct;
  *
  */
 public class UserController {
-	private static final Logger logger=LoggerFactory.getLogger(UserController.class);
+	private static final Logger LOGGER=LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private PersonService personService;
 	
@@ -58,14 +58,14 @@ public class UserController {
 	 * @return ResponseEntity<Person>
 	 */
 	@PostMapping("/addperson")
-	public ResponseEntity<Person> addPerson(@Valid @RequestBody Person person){
-		logger.info("user registration");
+	public ResponseEntity<Person> addPerson(@Valid @RequestBody final Person person){
+		LOGGER.info("user registration");
 		Person savePerson=personService.addPerson(person);
 		if (savePerson == null) {
-			logger.info("user registration Failed");
+			LOGGER.info("user registration Failed");
 			return new ResponseEntity("Registration Failed", HttpStatus.NOT_FOUND);
 		}
-		logger.info("user Successfully registered");
+		LOGGER.info("user Successfully registered");
 		return new ResponseEntity<Person>(savePerson, HttpStatus.OK);
 		
 	}
@@ -77,22 +77,22 @@ public class UserController {
 	 * @throws UserNotFoundException 
 	 */
 	@GetMapping("/login")
-	public ResponseEntity<String> UserLogin(@RequestParam("userId")int userId,@RequestParam("emailId")String email,@RequestParam("password")String password) throws UserNotFoundException{
+	public ResponseEntity<String> userLogin(@RequestParam("userId")final int userId,@RequestParam("emailId")final String email,@RequestParam("password")final String password) throws UserNotFoundException{
 		if(personService.getPerson(userId)) {
 			boolean login=personService.loginPerson(userId,email, password);
-			logger.info("user Login");
+			LOGGER.info("user Login");
 			if(login) {
-				logger.info("user Login Successful");
+				LOGGER.info("user Login Successful");
 				return new ResponseEntity<String>("Login Successful", HttpStatus.OK);
 				
 			}
 			else {
-				logger.info("user Login Failed");
+				LOGGER.info("user Login Failed");
 				return new ResponseEntity<String>("Check your emailId and password", HttpStatus.NOT_FOUND);
 			}	
 		}
 		else {
-			logger.error("User Not Found");
+			LOGGER.error("User Not Found");
 			throw new UserNotFoundException("Person cannot be logged, as id "+userId+" not present");
 		}
 	
@@ -104,8 +104,8 @@ public class UserController {
 	 * @return ResponseEntity<Person> 
 	 */
 	@PutMapping("/updateperson")
-	public ResponseEntity<Person> updatePerson(@Valid @RequestBody Person person)throws UserNotFoundException{
-		logger.info("User updates details");
+	public ResponseEntity<Person> updatePerson(@Valid @RequestBody final  Person person)throws UserNotFoundException{
+		LOGGER.info("User updates details");
 		boolean savePerson=personService.getPerson(person.getPersonId());
 		
 		if (savePerson) {
@@ -113,7 +113,7 @@ public class UserController {
 			return new ResponseEntity<Person>(updtPerson, HttpStatus.OK);
 		}
 		else {
-			logger.error("Person cannot be updated, as id "+person.getPersonId()+" not present");
+			LOGGER.error("Person cannot be updated, as id "+person.getPersonId()+" not present");
 			throw new UserNotFoundException("Person cannot be updated, as id "+person.getPersonId()+" not present");
 		}
 	}
@@ -124,15 +124,15 @@ public class UserController {
 	 * @param product id
 	 * @return Product object
 	 */
-	@GetMapping(value = "/getproductbyid/{productId}")
-	public ResponseEntity<Product> getProductById(@PathVariable("productId") int id) throws ProductException {
-		logger.info("User views product");
-		 Product product = productService.getProductById(id);
-			if(productService.getProductById(id)!=null) {
+	@GetMapping("/getproductbyid/{productId}")
+	public ResponseEntity<Product> getProductById(@PathVariable("productId")final int productId) throws ProductException {
+		LOGGER.info("User views product");
+		 if(productService.getProductById(productId)!=null) {
+			Product product = productService.getProductById(productId);
 			 return new ResponseEntity<Product>(product, HttpStatus.OK);
 		 }
 		 else {
-			 logger.error("No Product Found by this id");
+			 LOGGER.error("No Product Found by this id");
 			 throw new ProductException("No Product Found by this id");
 		 }
 			
@@ -142,18 +142,19 @@ public class UserController {
 	
 	/**
 	 * It will fetch all the products
-	 * from database by passing control to service layer by calling getAllProductList()
+	 * from database by passing control to service layer 
+	 * by calling getAllProductList()
 	 * @param empty
 	 * @return List<Product> object
 	 */
-	@GetMapping(value = "/getallproduct")
+	@GetMapping("/getallproduct")
 	public ResponseEntity<List<Product>> getProductList() throws ProductException{
-		logger.info("User views all products");
+		LOGGER.info("User views all products");
 		List<Product> productList = productService.getProductList();
 		if (!productList.isEmpty()) {
 			return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 		} else {
-			logger.error("No Product Found");
+			LOGGER.error("No Product Found");
 			throw new ProductException("No Product Found");
 		}		
 		
@@ -166,14 +167,14 @@ public class UserController {
 	 * @return List<Person> object
 	 */
 
-	@GetMapping(value = "/getproductbycategory/{category}")
-	public  ResponseEntity<List<Product>> getProductByCategory(@PathVariable("category") String category) throws ProductException{
-		logger.info("User views products by category");
+	@GetMapping("/getproductbycategory/{category}")
+	public  ResponseEntity<List<Product>> getProductByCategory(@PathVariable("category") final String category) throws ProductException{
+		LOGGER.info("User views products by category");
 		List<Product> list = productService.getProductByCategory(category);
 		if (!list.isEmpty()) {
 			return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
 		} else {
-			logger.error("No Product Found by this category");
+			LOGGER.error("No Product Found by this category");
 			throw new ProductException("No Product Found by this category");
 		}
 	}
@@ -184,11 +185,11 @@ public class UserController {
 	 * @return ResponseEntity<Feedback>
 	 */
 	@PostMapping("/addfeedback")
-	public ResponseEntity<Feedback> addFeedback(@Valid @RequestBody Feedback feedback) {
-		logger.info("User adds Feedback");
+	public ResponseEntity<Feedback> addFeedback(@Valid @RequestBody final Feedback feedback) {
+		LOGGER.info("User adds Feedback");
 		Feedback addFeedback = feedbackService.addFeedback(feedback);
 		if (addFeedback == null) {
-			logger.info("Failed to add Feedback");
+			LOGGER.info("Failed to add Feedback");
 
 			return new ResponseEntity("Failed to add Feedback", HttpStatus.NOT_FOUND);
 		}
@@ -198,15 +199,12 @@ public class UserController {
 	/**
 	 * This method add review to a product by giving userId,productId & review
 	 * to service layer addReviewForProduct() method.
-	 * @param userId
-	 * @param productId
-	 * @param review
-	 * @return ResponseEntity<Review> 
+	 * @return ResponseEntity<Review>
 	 * @throws ProductException 
 	 */
 	@PostMapping("/addreviewforproduct/{userid}/product/{productid}")
-	public ResponseEntity<Review> addReviewForProduct(@PathVariable("userid")int userId,@PathVariable("productid")int productId,@Valid @RequestBody Review review) throws ProductException {
-		logger.info("User adds Review For product");
+	public ResponseEntity<Review> addReviewForProduct(@PathVariable("userid")final int userId,@PathVariable("productid")final int productId,@Valid @RequestBody final Review review) throws ProductException {
+		LOGGER.info("User adds Review For product");
 		if(productService.getProductById(productId)!=null) {
 		boolean checkReview=reviewService.findByUserIdAndProdId(userId, productId);
 		if(checkReview) {
@@ -214,30 +212,30 @@ public class UserController {
 		return new ResponseEntity<Review>(addReview,HttpStatus.OK);
 		}
 		else {
-			logger.info("You have already given review for this product");
+			LOGGER.info("You have already given review for this product");
 			return new ResponseEntity("You have already given review for this product",HttpStatus.OK);
 		}
 		}
 		else {
-			logger.error("No Product Found");
+			LOGGER.error("No Product Found");
 			throw new ProductException("No Product Found");
 		}
 	
 	}
 	@GetMapping("/compareproduct/product1/product2/category")
-	public ResponseEntity<CompareProduct> compareTwoProductBasedOnCategory(@RequestParam int productId1,@RequestParam int productId2,@RequestParam String category) throws ProductException {
+	public ResponseEntity<CompareProduct> compareTwoProductBasedOnCategory(@RequestParam final int productId1,@RequestParam final int productId2,@RequestParam final String category) throws ProductException {
 		if(productService.getProductById(productId1)!=null && productService.getProductById(productId2)!=null) {
 		CompareProduct compareProducts=productService.compareTwoProductBasedOnCategory(category, productId1, productId2);
 		if(compareProducts.getProduct1()!=null && compareProducts.getProduct2()!=null) {
 			return new ResponseEntity<CompareProduct>(compareProducts,HttpStatus.OK);
 		}
 		else {
-			logger.error("No Product Found by this category");
+			LOGGER.error("No Product Found by this category");
 			throw new ProductException("No Product Found by this category");
 		}
 	}
 		else {
-			logger.error("No Product Found");
+			LOGGER.error("No Product Found");
 			throw new ProductException("No Product Found by the given Id.");
 		}
 	}

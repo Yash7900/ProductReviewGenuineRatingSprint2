@@ -59,11 +59,11 @@ public class Product implements Serializable {
 
 	}
 
-	public Product(int productId, @NotNull @Size(min = 2, message = "Product name cannot be empty") String productName,
-			@NotNull @Size(min = 2, message = "Category cannot be empty") String category,
-			@NotNull @Size(min = 2, message = "Seller cannot be empty") String sellerName,
-			@NotNull @Size(min = 2, message = "Description cannot be empty") String description, @NotNull Long price,
-			List<Review> review) {
+	public Product(final int productId, @NotNull @Size(min = 2, message = "Product name cannot be empty")final String productName,
+			@NotNull @Size(min = 2, message = "Category cannot be empty")final String category,
+			@NotNull @Size(min = 2, message = "Seller cannot be empty")final String sellerName,
+			@NotNull @Size(min = 2, message = "Description cannot be empty")final String description, @NotNull final Long price,
+			final List<Review> review) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -78,7 +78,7 @@ public class Product implements Serializable {
 		return productId;
 	}
 
-	public void setProductId(int productId) {
+	public void setProductId(final int productId) {
 		this.productId = productId;
 	}
 
@@ -86,7 +86,7 @@ public class Product implements Serializable {
 		return productName;
 	}
 
-	public void setProductName(String productName) {
+	public void setProductName(final String productName) {
 		this.productName = productName;
 	}
 
@@ -94,7 +94,7 @@ public class Product implements Serializable {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(final String category) {
 		this.category = category;
 	}
 
@@ -102,7 +102,7 @@ public class Product implements Serializable {
 		return sellerName;
 	}
 
-	public void setSellerName(String sellerName) {
+	public void setSellerName(final String sellerName) {
 		this.sellerName = sellerName;
 	}
 
@@ -110,7 +110,7 @@ public class Product implements Serializable {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -118,7 +118,7 @@ public class Product implements Serializable {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(final Long price) {
 		this.price = price;
 	}
 
@@ -126,7 +126,7 @@ public class Product implements Serializable {
 		return review;
 	}
 
-	public void setReview(List<Review> review) {
+	public void setReview(final List<Review> review) {
 		this.review = review;
 	}
 

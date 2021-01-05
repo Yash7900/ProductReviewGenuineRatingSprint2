@@ -20,11 +20,11 @@ import com.prgr.main.toc.CompareProduct;
  *
  */
 public class ProductServiceImpl implements ProductService {
-	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProductServiceImpl.class);
 	@Autowired
 	private ProductRepository productRepo;
 
-	// ------------------------ 1. ProductReviewGenuineRating Application// --------------------------
+	
 	/**
 	 * This method takes product details from controller and add it to the
 	 * repository.
@@ -33,8 +33,8 @@ public class ProductServiceImpl implements ProductService {
 	 * @return Product Object
 	 */
 	@Override
-	public Product addProduct(Product product) {
-		logger.info("adding product");
+	public Product addProduct(final Product product) {
+		LOGGER.info("adding product");
 		// TODO Auto-generated method stub
 		productRepo.save(product);
 		return product;
@@ -49,11 +49,11 @@ public class ProductServiceImpl implements ProductService {
 	 */
 
 	@Override
-	public Product deletProduct(int id) {
+	public Product deletProduct(final int productId) {
 		// TODO Auto-generated method stub
-		logger.info("deleting product");
-		Product product = productRepo.getOne(id);
-		productRepo.deleteById(id);
+		LOGGER.info("deleting product");
+		Product product = productRepo.getOne(productId);
+		productRepo.deleteById(productId);
 		return product;
 	}
 	/**
@@ -63,9 +63,9 @@ public class ProductServiceImpl implements ProductService {
 	 * @return Product Object
 	 */
 	@Override
-	public Product updateProduct(Product product) {
+	public Product updateProduct(final Product product) {
 		// TODO Auto-generated method stub
-		logger.info("updating product");
+		LOGGER.info("updating product");
 		productRepo.saveAndFlush(product);
 		return product;
 
@@ -77,11 +77,11 @@ public class ProductServiceImpl implements ProductService {
 	 * @return Product Object
 	 */
 	@Override
-	public Product getProductById(int id) {
+	public Product getProductById(final int productId) {
 		// TODO Auto-generated method stub
-		logger.info("getProductById()");
-		if (productRepo.findById(id).isPresent()) {
-			return productRepo.getOne(id);
+		LOGGER.info("getProductById()");
+		if (productRepo.findById(productId).isPresent()) {
+			return productRepo.getOne(productId);
 		} else {
 			return null;
 		}
@@ -95,9 +95,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> getProductList() {
 		// TODO Auto-generated method stub
-		logger.info("view all product");
-		List<Product> productList = productRepo.findAll();
-		return productList;
+		LOGGER.info("view all product");
+		return productRepo.findAll();
+		
 
 	}
 	/**
@@ -107,24 +107,22 @@ public class ProductServiceImpl implements ProductService {
 	 * @return  List<Product>
 	 */
 	@Override
-	public List<Product> getProductByCategory(String category) {
+	public List<Product> getProductByCategory(final String category) {
 		// TODO Auto-generated method stub
-		logger.info("view product based on category");
-		List<Product> product = productRepo.findAllByCategory(category);
-		return product;
+		LOGGER.info("view product based on category");
+		return productRepo.findAllByCategory(category);
+		 
 	}
 
 	@Override
 	/**
-	 * This method compare two products based on same category and fetch them from repository and gives the
+	 * This method compare two products based on same category 
+	 * and fetch them from repository and gives the
 	 * two products to CompareProduct transfer object.
-	 * @param category
-	 * @param productId1
-	 * @param productId2
 	 * @return CompareProduct
 	 */
 
-	public CompareProduct compareTwoProductBasedOnCategory(String category, int productId1, int productId2) {
+	public CompareProduct compareTwoProductBasedOnCategory(final String category,final int productId1,final int productId2) {
 		// TODO Auto-generated method stub
 		Product product1=productRepo.findByCategoryAndProductId(category,productId1);
 		Product product2=productRepo.findByCategoryAndProductId(category,productId2);

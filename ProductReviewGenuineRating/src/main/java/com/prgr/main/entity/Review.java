@@ -47,10 +47,10 @@ public class Review implements Serializable {
 	public Review()
 	{}
 
-	public Review(int reviewId, int userId,
-			@Min(value = 1, message = "Rating should not be less than 0") @Max(value = 5, message = "Rating should not be greater than 5") int rate,
-			@Size(min = 10, max = 200, message = "Description Me must be between 10 and 200 characters") String description,
-			Product product) {
+	public Review(final int reviewId,final int userId,
+			@Min(value = 1, message = "Rating should not be less than 0") @Max(value = 5, message = "Rating should not be greater than 5")final int rate,
+			@Size(min = 10, max = 200, message = "Description Me must be between 10 and 200 characters")final String description,
+			final Product product) {
 		super();
 		this.reviewId = reviewId;
 		this.userId = userId;
@@ -62,8 +62,8 @@ public class Review implements Serializable {
 
 
 	public Review(
-			@Min(value = 1, message = "Rating should not be less than 0") @Max(value = 5, message = "Rating should not be greater than 5") int rate,
-			@Size(min = 2, max = 50, message = "Description Me must be between 2 and 50 characters") String description) {
+			@Min(value = 1, message = "Rating should not be less than 0") @Max(value = 5, message = "Rating should not be greater than 5")final int rate,
+			@Size(min = 2, max = 50, message = "Description Me must be between 2 and 50 characters")final String description) {
 		super();
 		this.rate = rate;
 		this.description = description;
@@ -73,7 +73,7 @@ public class Review implements Serializable {
 		return reviewId;
 	}
 
-	public void setReviewId(int reviewId) {
+	public void setReviewId(final int reviewId) {
 		this.reviewId = reviewId;
 	}
 
@@ -81,7 +81,7 @@ public class Review implements Serializable {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(final int userId) {
 		this.userId = userId;
 	}
 
@@ -89,7 +89,7 @@ public class Review implements Serializable {
 		return rate;
 	}
 
-	public void setRate(int rate) {
+	public void setRate(final int rate) {
 		this.rate = rate;
 	}
 
@@ -97,7 +97,7 @@ public class Review implements Serializable {
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
@@ -105,7 +105,7 @@ public class Review implements Serializable {
 		return product;
 	}
 
-	public void setProduct(Product product) {
+	public void setProduct(final Product product) {
 		this.product = product;
 	}
 

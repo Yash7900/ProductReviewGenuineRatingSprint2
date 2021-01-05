@@ -20,7 +20,7 @@ import com.prgr.main.repository.PersonRepository;
  *
  */
 public class PersonServiceImpl implements PersonService{
-	private static final Logger logger=LoggerFactory.getLogger(PersonServiceImpl.class);
+	private static final Logger LOGGER=LoggerFactory.getLogger(PersonServiceImpl.class);
 	@Autowired
 	private PersonRepository personRepo;
 
@@ -31,8 +31,8 @@ public class PersonServiceImpl implements PersonService{
 	 * @return Person Object
 	 */
 	@Override
-	public Person addPerson(Person person) {
-		logger.info("adding Person");
+	public Person addPerson(final Person person) {
+		LOGGER.info("adding Person");
 		return personRepo.save(person);
 		
 	}
@@ -44,8 +44,8 @@ public class PersonServiceImpl implements PersonService{
 	 * @return Product Object
 	 */
 	@Override
-	public Person updatePerson(Person person) {
-		logger.info("Updating Person");
+	public Person updatePerson(final Person person) {
+		LOGGER.info("Updating Person");
 		Person presentPerson=personRepo.getOne(person.getPersonId());
 		if(presentPerson==null) {
 			return null;
@@ -65,7 +65,7 @@ public class PersonServiceImpl implements PersonService{
 	 */
 	@Override
 	public List<Person> getAllPerson() {
-		logger.info("getAllPerson()");
+		LOGGER.info("getAllPerson()");
 		// TODO Auto-generated method stub
 		return personRepo.findAll();
 	}
@@ -79,8 +79,8 @@ public class PersonServiceImpl implements PersonService{
 	 * @throws UserNotFoundException 
 	 */
 	@Override
-	public boolean loginPerson(int userId,String email, String password) {
-		logger.info("Person login");
+	public boolean loginPerson(final int userId,final String email,final String password) {
+		LOGGER.info("Person login");
 		// TODO Auto-generated method stub
 		Person person=personRepo.getOne(userId);
 		if(person.getEmailId().equals(email) && person.getPassword().equals(password)) {
@@ -99,9 +99,9 @@ public class PersonServiceImpl implements PersonService{
 	 * @return boolean(T/F)
 	 */
 	@Override
-	public boolean loginAdmin(String username, String password) {
+	public boolean loginAdmin(final String username,final String password) {
 		// TODO Auto-generated method stub
-		logger.info("admin login");
+		LOGGER.info("admin login");
 		if(username.equals("admin") && password.equals("admin1234")) {
 			return true;
 		}
@@ -116,9 +116,9 @@ public class PersonServiceImpl implements PersonService{
 	 * @return boolean
 	 */
 	@Override
-	public boolean getPerson(int personId) {
+	public boolean getPerson(final int personId) {
 		// TODO Auto-generated method stub
-		logger.info("getPerson()");
+		LOGGER.info("getPerson()");
 			if(personRepo.findById(personId).isPresent()) {
 				return true;
 			}

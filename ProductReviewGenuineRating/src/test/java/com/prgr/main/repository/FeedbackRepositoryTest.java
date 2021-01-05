@@ -1,7 +1,6 @@
 package com.prgr.main.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -51,7 +50,7 @@ class FeedbackRepositoryTest {
 	public void testViewAllFeedback()
 	{
 		List<Feedback> feedbackList=feedbackRepo.findAll();
-		assertNotNull(feedbackList);
+		//assertNotNull(feedbackList);
 		assertThat(feedbackList).size().isGreaterThan(0);
 	}
 	

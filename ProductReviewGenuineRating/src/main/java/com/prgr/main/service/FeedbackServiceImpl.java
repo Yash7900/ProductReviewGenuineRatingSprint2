@@ -19,7 +19,7 @@ import com.prgr.main.repository.FeedbackRepository;
  *
  */
 public class FeedbackServiceImpl implements FeedbackService {
-	private static final Logger logger=LoggerFactory.getLogger(FeedbackServiceImpl.class);
+	private static final Logger LOGGER=LoggerFactory.getLogger(FeedbackServiceImpl.class);
 	@Autowired
 	private FeedbackRepository feedbackRepo;
 	/**
@@ -28,8 +28,8 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 * @return feedback
 	 */
 	@Override
-	public Feedback addFeedback(Feedback feedback) {
-		logger.info("adding Feedback");
+	public Feedback addFeedback(final Feedback feedback) {
+		LOGGER.info("adding Feedback");
 		return feedbackRepo.save(feedback);
 	}
 	/**
@@ -38,7 +38,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 */
 	@Override
 	public List<Feedback> viewAllFeedback() {
-		logger.info("view all Feedback");
+		LOGGER.info("view all Feedback");
 		// TODO Auto-generated method stub
 		return feedbackRepo.findAll();
 	}
@@ -49,9 +49,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 * @return Feedback
 	 */
 	@Override
-	public void deleteFeedback(int feedbackId) {
+	public void deleteFeedback(final int feedbackId) {
 		// TODO Auto-generated method stub
-		logger.info("deleting Feedback");
+		LOGGER.info("deleting Feedback");
 		feedbackRepo.deleteById(feedbackId);
 		//Feedback feedback=feedbackRepo.getOne(feedbackId);
 		
@@ -62,9 +62,9 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 * @return boolean
 	 */
 	@Override
-	public boolean getFeedbackById(int feedbackId) {
+	public boolean getFeedbackById(final int feedbackId) {
 		// TODO Auto-generated method stub
-		logger.info("getFeedbackById()");
+		LOGGER.info("getFeedbackById()");
 		if(feedbackRepo.findById(feedbackId).isPresent()) {
 			return true;
 		}

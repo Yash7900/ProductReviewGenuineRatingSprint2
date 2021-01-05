@@ -21,7 +21,7 @@ import com.prgr.main.repository.ReviewRepository;
  *
  */
 public class ReviewServiceImpl implements ReviewService {
-	private static final Logger logger=LoggerFactory.getLogger(ReviewServiceImpl.class);
+	private static final Logger LOGGER=LoggerFactory.getLogger(ReviewServiceImpl.class);
 	@Autowired
 	private ReviewRepository reviewRepo;
 	
@@ -34,7 +34,7 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Review> viewallReview() {
 		// TODO Auto-generated method stub
-		logger.info("view all Review");
+		LOGGER.info("view all Review");
 		return reviewRepo.findAll();
 	}
 	/**
@@ -44,8 +44,8 @@ public class ReviewServiceImpl implements ReviewService {
 	 * @return boolean
 	 */
 	@Override
-	public boolean deleteReviewForProduct(int reviewId,int productId) {
-		logger.info("deleteing Review For Product");
+	public boolean deleteReviewForProduct(final int reviewId,final int productId) {
+		LOGGER.info("deleteing Review For Product");
 		Product product=productRepo.getOne(productId);
 		Review review=reviewRepo.findByReviewIdAndProduct(reviewId, product);
 		if(review!=null) {
@@ -64,16 +64,15 @@ public class ReviewServiceImpl implements ReviewService {
 	 * @return Review
 	 */
 	@Override
-	public Review addReviewForProduct(Review review, int productId,int userId) {
-		logger.info("adding Review For Product");
+	public Review addReviewForProduct(final Review review,final int productId,final int userId) {
+		LOGGER.info("adding Review For Product");
 		Product product=productRepo.getOne(productId);
 		Review rev=new Review();
 		rev.setUserId(userId);
 		rev.setRate(review.getRate());
 		rev.setDescription(review.getDescription());
 		rev.setProduct(product);
-		Review addReview= reviewRepo.save(rev);
-		return addReview;
+		return reviewRepo.save(rev);
 	}
 	/**
 	 * This method find a particular review for a product 
@@ -83,8 +82,8 @@ public class ReviewServiceImpl implements ReviewService {
 	 * @return boolean
 	 */
 	@Override
-	public boolean findByUserIdAndProdId(int userId, int productId) {
-		logger.info("find Review For Product on based on userid");
+	public boolean findByUserIdAndProdId(final int userId,final int productId) {
+		LOGGER.info("find Review For Product on based on userid");
 		// TODO Auto-generated method stub
 		Product product=productRepo.getOne(productId);
 		if(reviewRepo.findByUserIdAndProduct(userId, product)!=null) {

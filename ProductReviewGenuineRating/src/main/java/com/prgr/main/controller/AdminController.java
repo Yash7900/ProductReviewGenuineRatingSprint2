@@ -39,7 +39,7 @@ import com.prgr.main.service.ReviewService;
  *
  */
 public class AdminController {
-	private static final Logger logger=LoggerFactory.getLogger(AdminController.class);
+	private static final Logger LOGGER=LoggerFactory.getLogger(AdminController.class); //initializing Logger.
 	@Autowired
 	private PersonService personService;
 	@Autowired
@@ -55,15 +55,15 @@ public class AdminController {
 	 * @return  ResponseEntity<String>
 	 */
 	@GetMapping("/login")
-	public ResponseEntity<String> adminLogin(@RequestParam("username") String username,
-			@RequestParam("password") String password) {
-		logger.info("admin Login");
+	public ResponseEntity<String> adminLogin(@RequestParam("username")final String username,
+			@RequestParam("password")final String password) {
+		LOGGER.info("admin Login");
 		boolean login = personService.loginAdmin(username, password);
 		if (login) {
-			logger.info("admin Login Successful");
+			LOGGER.info("admin Login Successful");
 			return new ResponseEntity<String>("Login Successful", HttpStatus.OK);
 		} else {
-			logger.info("admin Login Failed");
+			LOGGER.info("admin Login Failed");
 			return new ResponseEntity<String>("Login Failed", HttpStatus.NOT_FOUND);
 		}
 	}
@@ -77,10 +77,10 @@ public class AdminController {
 	 */
 	@GetMapping("/allusers")
 	public ResponseEntity<List<Person>> getAllPerson() throws UserNotFoundException {
-		logger.info("admin view all user");
+		LOGGER.info("admin view all user");
 		List<Person> personList = personService.getAllPerson();
 		if (personList.isEmpty()) {
-			logger.error("No Users Found.");
+			LOGGER.error("No Users Found.");
 			throw new UserNotFoundException("No Users Found.");
 		} else {
 			return new ResponseEntity<List<Person>>(personList, HttpStatus.OK);
@@ -95,14 +95,14 @@ public class AdminController {
 	 * @return Product Object
 	 */
 
-	@PostMapping(value = "/addproduct")
-	public  ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) throws ProductException {
-		logger.info("admin add product");
+	@PostMapping("/addproduct")
+	public  ResponseEntity<Product> addProduct(@Valid @RequestBody final Product product) throws ProductException {
+		LOGGER.info("admin add product");
 		if (product.getProductId()==0&&product.getProductName()!=null&&product.getSellerName()!=null&&product.getCategory()!=null&&product.getDescription()!=null&&product.getPrice()!=0) {
 			return new ResponseEntity<Product>(productService.addProduct(product), HttpStatus.OK);
 		}
 		else {
-			logger.error("Product cannot be added");
+			LOGGER.error("Product cannot be added");
 			throw new ProductException("Product cannot be added");
 		}
 	}
@@ -112,15 +112,15 @@ public class AdminController {
 	 * @return ResponseEntity<String>
 	 */
 	
-	@DeleteMapping(value = "/deleteproduct/{productId}")
-	public  ResponseEntity<Product> deleteProduct(@PathVariable("productId") int id) throws ProductException{
-		logger.info("admin delete product");
-		if(productService.getProductById(id)!=null) {
-			return new ResponseEntity<Product>( productService.deletProduct(id), HttpStatus.OK);
+	@DeleteMapping("/deleteproduct/{productId}")
+	public  ResponseEntity<Product> deleteProduct(@PathVariable("productId")final int productId) throws ProductException{
+		LOGGER.info("admin delete product");
+		if(productService.getProductById(productId)!=null) {
+			return new ResponseEntity<Product>( productService.deletProduct(productId), HttpStatus.OK);
 		}
 		else {
-			logger.error("Product cannot be deleted, as id  not present");
-			throw new ProductException("Product cannot be deleted, as id "+id+" not present");
+			LOGGER.error("Product cannot be deleted, as id  not present");
+			throw new ProductException("Product cannot be deleted, as id "+productId+" is not present");
 		}
 }
 
@@ -130,15 +130,15 @@ public class AdminController {
 	 * @param product
 	 * @return Product Object
 	 */
-	@PutMapping(value = "/updateproduct")
-	public ResponseEntity<Product> updateProduct(@Valid @RequestBody Product product) throws ProductException{
+	@PutMapping("/updateproduct")
+	public ResponseEntity<Product> updateProduct(@Valid @RequestBody final Product product) throws ProductException{
 		//	Product update = productService.updateProduct(product);
-		logger.info("admin updates product");
+		LOGGER.info("admin updates product");
 			if(productService.getProductById(product.getProductId())!=null) {
 				return new ResponseEntity( productService.updateProduct(product),HttpStatus.OK);
 			}
 			else {
-				logger.error("Product cannot be updated, as id "+product.getProductId()+" not present");
+				LOGGER.error("Product cannot be updated, as id "+product.getProductId()+" is not present");
 				throw new ProductException("Product could not be updated,as id "+product.getProductId()+" not present");
 			}
 			
@@ -150,15 +150,15 @@ public class AdminController {
 	 * @param product id
 	 * @return Product object
 	 */
-	@GetMapping(value = "/getproductbyid/{productId}")
-	public ResponseEntity<Product> getProductById(@PathVariable("productId") int id) throws ProductException {
-		logger.info("admin views product");
-		 Product product = productService.getProductById(id);
-			if(productService.getProductById(id)!=null) {
+	@GetMapping("/getproductbyid/{productId}")
+	public ResponseEntity<Product> getProductById(@PathVariable("productId")final int productId) throws ProductException {
+		LOGGER.info("admin views product");
+			if(productService.getProductById(productId)!=null) {
+				Product product = productService.getProductById(productId);
 			 return new ResponseEntity<Product>(product, HttpStatus.OK);
 		 }
 		 else {
-			 logger.error("No Product Found by this id");
+			 LOGGER.error("No Product Found by this id");
 			 throw new ProductException("No Product Found by this id");
 		 }
 			
@@ -167,18 +167,19 @@ public class AdminController {
 	
 	/**
 	 * It will fetch all the products
-	 * from database by passing control to service layer by calling getAllProductList()
+	 * from database by passing control to service layer
+	 *  by calling getAllProductList()
 	 * @param empty
 	 * @return List<Product> object
 	 */
-	@GetMapping(value = "/getallproduct")
+	@GetMapping("/getallproduct")
 	public ResponseEntity<List<Product>> getProductList() throws ProductException{
-		logger.info("admin views all products");
+		LOGGER.info("admin views all products");
 		List<Product> productList = productService.getProductList();
 		if (!productList.isEmpty()) {
 			return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
 		} else {
-			logger.error("No Product Found");
+			LOGGER.error("No Product Found");
 			throw new ProductException("No Product Found");
 		}		
 		
@@ -192,14 +193,14 @@ public class AdminController {
 	 * @return List<Person> object
 	 */
 
-	@GetMapping(value = "/getproductbycategory/{category}")
-	public  ResponseEntity<List<Product>> getProductByCategory(@PathVariable("category") String category) throws ProductException{
-		logger.info("admin views products by category");
+	@GetMapping("/getproductbycategory/{category}")
+	public  ResponseEntity<List<Product>> getProductByCategory(@PathVariable("category")final String category) throws ProductException{
+		LOGGER.info("admin views products by category");
 		List<Product> list = productService.getProductByCategory(category);
 		if (!list.isEmpty()) {
 			return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
 		} else {
-			logger.error("No Product Found by this category");
+			LOGGER.error("No Product Found by this category");
 			throw new ProductException("No Product Found by this category");
 		}
 	}
@@ -212,12 +213,12 @@ public class AdminController {
 	@GetMapping("/getAllfeedback")
 	public ResponseEntity<List<Feedback>> getAllFeedback() throws FeedbackNotFoundException
 	{
-		logger.info("admin views all feedbacks");
+		LOGGER.info("admin views all feedbacks");
 		List<Feedback> feedbackList=feedbackService.viewAllFeedback();
 		if (!feedbackList.isEmpty()) {
 			return new ResponseEntity<List<Feedback>>(feedbackList,HttpStatus.OK);
 		} else {
-			logger.error("No feedbacks Found");
+			LOGGER.error("No feedbacks Found");
 			throw new FeedbackNotFoundException("No feedbacks Found");
 		}	
 		
@@ -229,17 +230,17 @@ public class AdminController {
 	 * @return ResponseEntity<Feedback>
 	 */
 	@DeleteMapping("/deletefeedback/{id}")
-	public ResponseEntity<Feedback> deleteFeedback(@PathVariable("id") Integer feedbackId)throws FeedbackNotFoundException
+	public ResponseEntity<Feedback> deleteFeedback(@PathVariable("id")final Integer feedbackId)throws FeedbackNotFoundException
 	{
-		logger.info("admin delete feedback");
+		LOGGER.info("admin delete feedback");
 		boolean feedbackPresent=feedbackService.getFeedbackById(feedbackId);
 		if(feedbackPresent) {
 			feedbackService.deleteFeedback(feedbackId);
 			return new ResponseEntity("feedback deleted",HttpStatus.OK);
 		}
 		else {
-			logger.error("Feedback cannot be deleted, as id "+feedbackId+" not present");
-			throw new FeedbackNotFoundException("Feedback cannot be deleted, as id "+feedbackId+" not present");
+			LOGGER.error("Feedback cannot be deleted, as id "+feedbackId+" not present");
+			throw new FeedbackNotFoundException("Feedback cannot be deleted, as id "+feedbackId+" is not present");
 		}
 	}
 	/**
@@ -251,15 +252,15 @@ public class AdminController {
 	 * @throws ReviewNotFoundException
 	 */
 	@DeleteMapping("/deletereview/{productid}")
-	public ResponseEntity<String> deleteReviewForProduct(@PathVariable("productid") Integer productId,@RequestParam Integer reviewId)throws ReviewNotFoundException
+	public ResponseEntity<String> deleteReviewForProduct(@PathVariable("productid")final Integer productId,@RequestParam final Integer reviewId)throws ReviewNotFoundException
 	{
-		logger.info("admin delete review of product");
+		LOGGER.info("admin delete review of product");
 		boolean reviewPresent=reviewService.deleteReviewForProduct(reviewId, productId);
 		if(reviewPresent) {
 			return new ResponseEntity("review deleted",HttpStatus.OK);
 		}
 		else {
-			logger.error("Review cannot be deleted,as review for productid "+productId+" is not present");
+			LOGGER.error("Review cannot be deleted,as review for productid "+productId+" is not present");
 			throw new ReviewNotFoundException("Review cannot be deleted,as review for productid "+productId+" is not present");
 		}
 	}

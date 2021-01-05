@@ -23,6 +23,7 @@ import javax.validation.constraints.Size;
  *
  */
 public class Person implements Serializable {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PERSON_ID")
@@ -64,8 +65,8 @@ public class Person implements Serializable {
 
 	}
 
-	public Person(int personId, String firstName, String lastName, String address, Long phoneNumber, String emailId,
-			String password, String role) {
+	public Person(final int personId,final String firstName,final String lastName,final String address,final Long phoneNumber,final String emailId,
+			final String password,final String role) {
 		super();
 		this.personId = personId;
 		this.firstName = firstName;
@@ -81,7 +82,7 @@ public class Person implements Serializable {
 		return personId;
 	}
 
-	public void setPersonId(int personId) {
+	public void setPersonId(final int personId) {
 		this.personId = personId;
 	}
 
@@ -89,7 +90,7 @@ public class Person implements Serializable {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -97,7 +98,7 @@ public class Person implements Serializable {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
 
@@ -105,7 +106,7 @@ public class Person implements Serializable {
 		return emailId;
 	}
 
-	public void setEmailId(String emailId) {
+	public void setEmailId(final String emailId) {
 		this.emailId = emailId;
 	}
 
@@ -113,7 +114,7 @@ public class Person implements Serializable {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(final String address) {
 		this.address = address;
 	}
 
@@ -121,15 +122,15 @@ public class Person implements Serializable {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(long i) {
-		this.phoneNumber = i;
+	public void setPhoneNumber(final long phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(final String password) {
 		this.password = password;
 	}
 
@@ -137,7 +138,7 @@ public class Person implements Serializable {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(final String role) {
 		this.role = role;
 	}
 

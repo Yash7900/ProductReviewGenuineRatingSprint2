@@ -10,25 +10,25 @@ public interface FeedbackService {
 	 * @param 
 	 * @return feedback
 	 */
-	public Feedback addFeedback(Feedback feedback);
+	 Feedback addFeedback(Feedback feedback);
 	
 	/**
 	 * This method display all the feedbacks from database.
 	 * @return List<Feedback>
 	 */
-	public List<Feedback> viewAllFeedback();
+	 List<Feedback> viewAllFeedback();
 	
 	/**
 	 * This method delete feedback by id parameter.
 	 * @param 
 	 * @return Feedback
 	 */
-	public void deleteFeedback(int feedbackId);
+	 void deleteFeedback(int feedbackId);
 	/**
 	 * This method get feedback from Repository based on Id.
 	 * @param feedbackId
 	 * @return boolean
 	 */
-	public boolean getFeedbackById(int feedbackId);
+	 boolean getFeedbackById(int feedbackId);
 
 }

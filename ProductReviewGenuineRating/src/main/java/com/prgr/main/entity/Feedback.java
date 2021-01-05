@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
  *
  */
 public class Feedback implements Serializable {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "FEEDBACK_ID")
@@ -34,8 +35,8 @@ public class Feedback implements Serializable {
 	public Feedback()
 	{}
 	
-	public Feedback(String feedbackAbout,
-			String feedbackDescription) {
+	public Feedback(final String feedbackAbout,
+			final String feedbackDescription) {
 		super();
 		//this.feedbackId = feedbackId;
 		this.feedbackAbout = feedbackAbout;
@@ -45,19 +46,19 @@ public class Feedback implements Serializable {
 	public int getFeedbackId() {
 		return feedbackId;
 	}
-	public void setFeedbackId(int feedbackId) {
+	public void setFeedbackId(final int feedbackId) {
 		this.feedbackId = feedbackId;
 	}
 	public String getFeedbackAbout() {
 		return feedbackAbout;
 	}
-	public void setFeedbackAbout(String feedbackAbout) {
+	public void setFeedbackAbout(final String feedbackAbout) {
 		this.feedbackAbout = feedbackAbout;
 	}
 	public String getFeedbackDescription() {
 		return feedbackDescription;
 	}
-	public void setFeedbackDescription(String feedbackDescription) {
+	public void setFeedbackDescription(final String feedbackDescription) {
 		this.feedbackDescription = feedbackDescription;
 	}
 	@Override

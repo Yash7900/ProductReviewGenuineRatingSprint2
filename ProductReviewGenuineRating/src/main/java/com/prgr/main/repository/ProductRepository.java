@@ -13,7 +13,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer>{
 	 * @param category
 	 * @return
 	 */
-	public List<Product> findAllByCategory(String category);
+	 List<Product> findAllByCategory(String category);
 	/**
 	 * This method find a product based on category 
 	 * provided.
@@ -21,5 +21,5 @@ public interface ProductRepository extends JpaRepository<Product,Integer>{
 	 * @param productId
 	 * @return product
 	 */
-	public Product findByCategoryAndProductId(String category,int productId);
+	 Product findByCategoryAndProductId(String category,int productId);
 }

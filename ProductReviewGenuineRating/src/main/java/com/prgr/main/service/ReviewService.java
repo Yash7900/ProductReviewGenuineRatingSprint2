@@ -9,14 +9,14 @@ public interface ReviewService {
 	 * This method return a list of review from repository
 	 * @return List<Review>
 	 */
-	public List<Review> viewallReview();
+	 List<Review> viewallReview();
 	/**
 	 * This method delete review for a product from repository.
 	 * @param reviewId
 	 * @param productId
 	 * @return boolean
 	 */
-	public boolean deleteReviewForProduct(int reviewId,int productId);
+	 boolean deleteReviewForProduct(int reviewId,int productId);
 	/**
 	 * This method add review to product in repository.
 	 * @param review
@@ -24,7 +24,7 @@ public interface ReviewService {
 	 * @param userId
 	 * @return Review
 	 */
-	public Review addReviewForProduct(Review review, int productId,int userId);
+	 Review addReviewForProduct(Review review, int productId,int userId);
 	/**
 	 * This method find a particular review for a product 
 	 * in database given by a user.
@@ -32,5 +32,5 @@ public interface ReviewService {
 	 * @param productId
 	 * @return boolean
 	 */
-	public boolean findByUserIdAndProdId(int userId,int productId);
+	 boolean findByUserIdAndProdId(int userId,int productId);
 }

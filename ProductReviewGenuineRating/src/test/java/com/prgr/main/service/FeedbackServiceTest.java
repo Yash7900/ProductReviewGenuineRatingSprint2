@@ -72,7 +72,7 @@ class FeedbackServiceTest {
 		
 		Mockito.when(feedbackRepo.getOne(1)).thenReturn(feedback);
 		Mockito.when(feedbackRepo.existsById(feedback.getFeedbackId())).thenReturn(false);
-		assertFalse(feedbackRepo.existsById(feedback.getFeedbackId()));
+		assertFalse(feedbackRepo.existsById(feedback.getFeedbackId()),"");
 	}
 	
 }

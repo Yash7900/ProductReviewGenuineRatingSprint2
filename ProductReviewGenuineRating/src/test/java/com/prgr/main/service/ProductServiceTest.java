@@ -73,7 +73,7 @@ class ProductServiceTest {
 		
 		Mockito.when(productRepo.getOne(1)).thenReturn(product);
 		Mockito.when(productRepo.existsById(product.getProductId())).thenReturn(false);
-		assertFalse(productRepo.existsById(product.getProductId()));
+		assertFalse(productRepo.existsById(product.getProductId()),"");
 	}
 	@Test 
 	public void testUpdateProduct()
@@ -81,14 +81,14 @@ class ProductServiceTest {
 	{
 	   Product product=new Product();
        product.setProductId(1);
-	   product.setPrice(100000L);
+	   product.setPrice(100L);
 	   product.setSellerName("Akshata");
 	   
 	   Mockito.when(productRepo.getOne(1)).thenReturn(product);
-	   product.setPrice(500000L);
+	   product.setPrice(500L);
 	   Mockito.when(productRepo.save(product)).thenReturn(product);
 		
-	   assertEquals(500000L, product.getPrice());
+	   assertEquals(500L, product.getPrice(),"");
 	   
 	   }
 	
@@ -101,7 +101,7 @@ class ProductServiceTest {
 		product.setProductName("Bike");
 		product.setDescription("Vehicles");
 		product.setCategory("Automotors");
-		product.setPrice(200000L);
+		product.setPrice(200L);
 		product.setSellerName("Akshata");
 		
 		Mockito.when(productRepo.getOne(25)).thenReturn(product);
@@ -116,7 +116,7 @@ class ProductServiceTest {
 		product.setProductName("Bike");
 		product.setDescription("Vehicles");
 		product.setCategory("Automotors");
-		product.setPrice(200000L);
+		product.setPrice(200L);
 		product.setSellerName("Akshata");
 		
 		Product product2= new Product();
@@ -124,7 +124,7 @@ class ProductServiceTest {
 		product2.setProductName("Scooter");
 		product2.setDescription("Vehicles");
 		product2.setCategory("Automotors");
-		product2.setPrice(20000L);
+		product2.setPrice(300L);
 		product2.setSellerName("Akshay");
 		
 		List<Product> productList=new ArrayList<>();

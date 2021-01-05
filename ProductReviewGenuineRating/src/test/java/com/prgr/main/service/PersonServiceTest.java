@@ -39,6 +39,7 @@ class PersonServiceTest {
 	@Test
 	public void testAddPerson() {
 		Person person=new Person();
+		person.setPersonId(1);
 		person.setFirstName("yash");
 		person.setLastName("varadkar");
 		person.setAddress("amboli");
@@ -58,8 +59,8 @@ class PersonServiceTest {
 		person.setLastName("Sawant");
 		person.setAddress("Mumbai");
 		person.setPhoneNumber(787878787);
-		person.setEmailId("siddhi@email.com");
-		person.setPassword("siddhi08");
+		person.setEmailId("siddi@email.com");
+		person.setPassword("siddhi09");
 		
 		Mockito.when(personRepo.getOne(1)).thenReturn(person);
 		person.setEmailId("siddhi123@email.com");
@@ -84,8 +85,8 @@ class PersonServiceTest {
 		person2.setLastName("Sawant");
 		person2.setAddress("Mumbai");
 		person2.setPhoneNumber(787878787);
-		person2.setEmailId("siddhi@email.com");
-		person2.setPassword("siddhi08");
+		person2.setEmailId("siddi@email.com");
+		person2.setPassword("siddhi06");
 		
 		List<Person> personList=new ArrayList<>();
 		personList.add(person1);

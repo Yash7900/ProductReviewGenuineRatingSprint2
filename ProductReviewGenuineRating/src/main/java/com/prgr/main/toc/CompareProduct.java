@@ -8,7 +8,7 @@ public class CompareProduct {
 	
 	private Product product2;
 
-	public CompareProduct(Product product1, Product product2) {
+	public CompareProduct(final Product product1,final Product product2) {
 		super();
 		this.product1 = product1;
 		this.product2 = product2;
@@ -22,7 +22,7 @@ public class CompareProduct {
 		return product1;
 	}
 
-	public void setProduct1(Product product1) {
+	public void setProduct1(final Product product1) {
 		this.product1 = product1;
 	}
 
@@ -30,7 +30,7 @@ public class CompareProduct {
 		return product2;
 	}
 
-	public void setProduct2(Product product2) {
+	public void setProduct2(final Product product2) {
 		this.product2 = product2;
 	}
 
