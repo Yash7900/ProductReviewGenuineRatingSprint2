@@ -1,16 +1,23 @@
 package com.prgr.main.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prgr.main.entity.Person;
+import com.prgr.main.entity.Staff;
 import com.prgr.main.exception.UserNotFoundException;
 import com.prgr.main.service.PersonService;
+import com.prgr.main.toc.Message;
 
 @CrossOrigin("*")
 @RestController
@@ -21,19 +28,26 @@ public class LoginController {
 	@Autowired
 	private PersonService personService;
 	
-	@GetMapping("/adminlogin/{user}/{pass}")
-	//
-	public boolean adminLogin(@PathVariable("user")final String username,@PathVariable("pass")final String password) {
+	@PostMapping("/admin")
+	/**
+	 *  This method accepts login credentials from admin
+	 * and pass that credentials to service layer loginAdmin() method.
+	 * @param 
+	 * @return  ResponseEntity<String>
+	 */
+	
+	public ResponseEntity<Message> adminLogin(@RequestBody Staff staff) {
 		LOGGER.info("admin Login");
-		boolean login = personService.loginAdmin(username,password);
+		boolean login = personService.loginAdmin(staff.getEmailId(),staff.getPassword());
+		Message msg=new Message();
 		if (login) {
 			LOGGER.info("admin Login Successful");
-			//return new ResponseEntity<String>("Login Successful", HttpStatus.OK);
-			return true;
+			msg.setResMessage("Login Successful ");
+			return new ResponseEntity<Message>(msg,HttpStatus.OK);
 		} else {
 			LOGGER.info("admin Login Failed");
-			//return new ResponseEntity<String>("Login Failed", HttpStatus.NOT_FOUND);
-			return false;
+			msg.setResMessage("Login Failed ");
+			return new ResponseEntity<Message>(msg,HttpStatus.NOT_FOUND);
 		}
 	}
 	
@@ -44,21 +58,22 @@ public class LoginController {
 	 * @return  ResponseEntity<String>
 	 * @throws UserNotFoundException 
 	 */
-	@GetMapping("/login/{user}/{pass}")
-	public boolean userLogin(@PathVariable("user")final String email,@PathVariable("pass")final String password) throws UserNotFoundException{
-		
-			boolean login=personService.loginPerson(email, password);
-			LOGGER.info("user Login");
-			if(login) {
-				LOGGER.info("user Login Successful");
-				//return new ResponseEntity<String>("Login Successful", HttpStatus.OK);
-				return true;
+	@PostMapping("/user")
+	public ResponseEntity<Message> userLogin(@RequestBody Person person) throws UserNotFoundException{
+		LOGGER.info("user Login");
+		List<Person> login=personService.loginPerson(person.getEmailId(),person.getPassword());
+		Message msg=new Message();
+			if(login.isEmpty()) {
+				LOGGER.info("user Login Failed");
+				msg.setResMessage(" Login Failed ");
+				return new ResponseEntity<Message>(msg,HttpStatus.NOT_FOUND);
 				
 			}
 			else {
-				LOGGER.info("user Login Failed");
-				//return new ResponseEntity<String>("Check your emailId and password", HttpStatus.NOT_FOUND);
-				return false;
+				LOGGER.info("user Login Successful");
+				msg.setResMessage("Login Successful ");
+				msg.setPersonList(login);
+				return new ResponseEntity<Message>(msg,HttpStatus.OK);
 			}	
 		}
 		

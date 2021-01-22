@@ -23,7 +23,7 @@ public interface PersonService {
 	 * @return boolean(T/F)
 	 * @throws UserNotFoundException 
 	 */
-	 boolean loginPerson(String email,String password);
+	 List<Person> loginPerson(String email,String password);
 	/**
 	 * This method takes person details from controller 
 	 * and add it to the repository.

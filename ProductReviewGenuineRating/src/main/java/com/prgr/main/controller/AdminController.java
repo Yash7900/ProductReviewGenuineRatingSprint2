@@ -50,25 +50,7 @@ public class AdminController {
 	private FeedbackService feedbackService;
 	@Autowired
 	private ReviewService reviewService;
-	/**
-	 *  This method accepts login credentials from admin
-	 * and pass that credentials to service layer loginAdmin() method.
-	 * @param 
-	 * @return  ResponseEntity<String>
-	 */
-	@GetMapping("/login")
-	public ResponseEntity<String> adminLogin(@RequestParam("username")final String username,
-			@RequestParam("password")final String password) {
-		LOGGER.info("admin Login");
-		boolean login = personService.loginAdmin(username, password);
-		if (login) {
-			LOGGER.info("admin Login Successful");
-			return new ResponseEntity<String>("Login Successful", HttpStatus.OK);
-		} else {
-			LOGGER.info("admin Login Failed");
-			return new ResponseEntity<String>("Login Failed", HttpStatus.NOT_FOUND);
-		}
-	}
+	
 	
 	/**
 	 * It will fetch all the person details

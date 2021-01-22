@@ -11,7 +11,7 @@ public class Staff {
 	private Integer staffId;
 	
 	@Column
-	private String userName;
+	private String emailId;
 	
 	@Column
 	private String password;
@@ -22,10 +22,10 @@ public class Staff {
 
 	
 
-	public Staff(Integer staffId, String userName, String password) {
+	public Staff(Integer staffId, String emailId, String password) {
 		super();
 		this.staffId = staffId;
-		this.userName = userName;
+		this.emailId = emailId;
 		this.password = password;
 	}
 
@@ -43,12 +43,12 @@ public class Staff {
 
 
 
-	public String getUserName() {
-		return userName;
+	public String getEmailId() {
+		return emailId;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
 
 	public String getPassword() {
@@ -63,7 +63,7 @@ public class Staff {
 
 	@Override
 	public String toString() {
-		return "Staff [staffId=" + staffId + ", userName=" + userName + ", password=" + password + "]";
+		return "Staff [staffId=" + staffId + ", emailId=" + emailId + ", password=" + password + "]";
 	}
 	
 	

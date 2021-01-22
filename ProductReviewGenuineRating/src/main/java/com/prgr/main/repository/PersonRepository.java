@@ -1,5 +1,7 @@
 package com.prgr.main.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.prgr.main.entity.Person;
@@ -10,7 +12,7 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
 	 * @param email
 	 * @return
 	 */
-	Person findByEmailIdAndPassword(String email,String password);
+	List<Person> findByEmailIdAndPassword(String email,String password);
 	
 	
 

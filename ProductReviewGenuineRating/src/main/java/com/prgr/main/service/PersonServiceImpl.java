@@ -84,15 +84,15 @@ public class PersonServiceImpl implements PersonService{
 	 * @throws UserNotFoundException 
 	 */
 	@Override
-	public boolean loginPerson(final String email,final String password) {
+	public List<Person> loginPerson(final String email,final String password) {
 		LOGGER.info("Person login");
 		// TODO Auto-generated method stub
-		Person person=personRepo.findByEmailIdAndPassword(email, password);
+		List<Person> person=personRepo.findByEmailIdAndPassword(email, password);
 		if(person!=null) {
-			return true;
+			return person;
 		}
 		else {
-			return false;
+			return null;
 		}
 	}
 
@@ -107,7 +107,7 @@ public class PersonServiceImpl implements PersonService{
 	public boolean loginAdmin(final String username,final String password) {
 		// TODO Auto-generated method stub
 		LOGGER.info("admin login");
-		Staff staff=staffRepo.findByUserNameAndPassword(username, password);
+		Staff staff=staffRepo.findByEmailIdAndPassword(username, password);
 		if(staff!=null) {
 			return true;
 		}

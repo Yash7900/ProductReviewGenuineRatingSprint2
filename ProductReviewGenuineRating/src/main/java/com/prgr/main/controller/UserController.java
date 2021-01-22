@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prgr.main.entity.Feedback;
+import com.prgr.main.entity.Person;
 import com.prgr.main.entity.Product;
 import com.prgr.main.entity.Review;
-import com.prgr.main.entity.Person;
 import com.prgr.main.exception.ProductException;
 import com.prgr.main.exception.UserNotFoundException;
 import com.prgr.main.service.FeedbackService;
@@ -71,28 +71,8 @@ public class UserController {
 		return new ResponseEntity<Person>(savePerson, HttpStatus.OK);
 		
 	}
-	/**
-	 *  This method accepts login credentials from user
-	 * and pass that credentials to service layer loginPerson() method.
-	 * @param 
-	 * @return  ResponseEntity<String>
-	 * @throws UserNotFoundException 
-	 */
-	@GetMapping("/login")
-	public ResponseEntity<String> userLogin(@RequestParam("emailId")final String email,@RequestParam("password")final String password) throws UserNotFoundException{
-			boolean login=personService.loginPerson(email, password);
-			LOGGER.info("user Login");
-			if(login) {
-				LOGGER.info("user Login Successful");
-				return new ResponseEntity<String>("Login Successful", HttpStatus.OK);
-				
-			}
-			else {
-				LOGGER.info("user Login Failed");
-				return new ResponseEntity<String>("Check your emailId and password", HttpStatus.NOT_FOUND);
-			}	
-		}
-		
+	
+
 	
 	
 	/**

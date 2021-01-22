@@ -6,5 +6,5 @@ import com.prgr.main.entity.Staff;
 
 public interface StaffRepository extends JpaRepository<Staff,Integer> {
 
-	Staff findByUserNameAndPassword(String username,String password);
+	Staff findByEmailIdAndPassword(String email,String password);
 }

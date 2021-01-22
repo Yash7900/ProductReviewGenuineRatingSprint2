@@ -1,6 +1,7 @@
 package com.prgr.main.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -125,7 +126,7 @@ class PersonServiceTest {
 		assertEquals(person.getEmailId(),"siddhi@email.com");
 		assertEquals(person.getPassword(),"siddhi08");
 		Mockito.when(personRepo.getOne(1)).thenReturn(person);
-		assertTrue(personService.loginPerson(person.getEmailId(),person.getPassword()));
+		assertNotNull(personService.loginPerson(person.getEmailId(),person.getPassword()));
 	}
 	
 }
