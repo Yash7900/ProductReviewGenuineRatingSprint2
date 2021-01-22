@@ -10,7 +10,7 @@ public interface PersonRepository extends JpaRepository<Person,Integer> {
 	 * @param email
 	 * @return
 	 */
-	 Person findByEmailId(String email);
+	Person findByEmailIdAndPassword(String email,String password);
 	
 	
 

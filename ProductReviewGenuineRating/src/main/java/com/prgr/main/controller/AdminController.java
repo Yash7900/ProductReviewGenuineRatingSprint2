@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prgr.main.entity.Feedback;
-import com.prgr.main.entity.Person;
 import com.prgr.main.entity.Product;
 import com.prgr.main.exception.FeedbackNotFoundException;
 import com.prgr.main.exception.ProductException;
@@ -30,7 +30,9 @@ import com.prgr.main.service.FeedbackService;
 import com.prgr.main.service.PersonService;
 import com.prgr.main.service.ProductService;
 import com.prgr.main.service.ReviewService;
+import com.prgr.main.toc.Message;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/prgr/admin")
 /**
@@ -76,14 +78,16 @@ public class AdminController {
 	 * @throws UserNotFoundException 
 	 */
 	@GetMapping("/allusers")
-	public ResponseEntity<List<Person>> getAllPerson() throws UserNotFoundException {
+	public ResponseEntity<Message> getAllPerson() throws UserNotFoundException {
 		LOGGER.info("admin view all user");
-		List<Person> personList = personService.getAllPerson();
-		if (personList.isEmpty()) {
+		Message msg=new Message();
+		msg.setResMessage("SuccessFully Fetching Details.");
+		msg.setPersonList(personService.getAllPerson());
+		if (msg.getPersonList().isEmpty()) {
 			LOGGER.error("No Users Found.");
 			throw new UserNotFoundException("No Users Found.");
 		} else {
-			return new ResponseEntity<List<Person>>(personList, HttpStatus.OK);
+			return new ResponseEntity<Message>(msg, HttpStatus.OK);
 		}
 	}
 
@@ -113,10 +117,13 @@ public class AdminController {
 	 */
 	
 	@DeleteMapping("/deleteproduct/{productId}")
-	public  ResponseEntity<Product> deleteProduct(@PathVariable("productId")final int productId) throws ProductException{
+	public  ResponseEntity<Message> deleteProduct(@PathVariable("productId")final int productId) throws ProductException{
 		LOGGER.info("admin delete product");
-		if(productService.getProductById(productId)!=null) {
-			return new ResponseEntity<Product>( productService.deletProduct(productId), HttpStatus.OK);
+		Message msg=new Message();
+		msg.setResMessage("After deletion, Fetching the Details.");
+		msg.setProductList(productService.deletProduct(productId));
+		if(msg.getProductList()!=null) {
+			return new ResponseEntity<Message>(msg , HttpStatus.OK);
 		}
 		else {
 			LOGGER.error("Product cannot be deleted, as id  not present");
@@ -131,11 +138,14 @@ public class AdminController {
 	 * @return Product Object
 	 */
 	@PutMapping("/updateproduct")
-	public ResponseEntity<Product> updateProduct(@Valid @RequestBody final Product product) throws ProductException{
+	public ResponseEntity<Message> updateProduct(@Valid @RequestBody final Product product) throws ProductException{
 		//	Product update = productService.updateProduct(product);
 		LOGGER.info("admin updates product");
-			if(productService.getProductById(product.getProductId())!=null) {
-				return new ResponseEntity( productService.updateProduct(product),HttpStatus.OK);
+		Message msg=new Message();
+		msg.setResMessage("After Updating, Fetching the Details.");
+		msg.setProductList(productService.updateProduct(product));
+			if(msg.getProductList()!=null) {
+				return new ResponseEntity( msg,HttpStatus.OK);
 			}
 			else {
 				LOGGER.error("Product cannot be updated, as id "+product.getProductId()+" is not present");
@@ -230,13 +240,15 @@ public class AdminController {
 	 * @return ResponseEntity<Feedback>
 	 */
 	@DeleteMapping("/deletefeedback/{id}")
-	public ResponseEntity<Feedback> deleteFeedback(@PathVariable("id")final Integer feedbackId)throws FeedbackNotFoundException
+	public ResponseEntity<Message> deleteFeedback(@PathVariable("id")final Integer feedbackId)throws FeedbackNotFoundException
 	{
 		LOGGER.info("admin delete feedback");
 		boolean feedbackPresent=feedbackService.getFeedbackById(feedbackId);
 		if(feedbackPresent) {
-			feedbackService.deleteFeedback(feedbackId);
-			return new ResponseEntity("feedback deleted",HttpStatus.OK);
+			Message msg=new Message();
+			msg.setResMessage("Deleted Successfully..!");
+			msg.setFeedbackList(feedbackService.deleteFeedback(feedbackId));
+			return new ResponseEntity(msg,HttpStatus.OK);
 		}
 		else {
 			LOGGER.error("Feedback cannot be deleted, as id "+feedbackId+" not present");

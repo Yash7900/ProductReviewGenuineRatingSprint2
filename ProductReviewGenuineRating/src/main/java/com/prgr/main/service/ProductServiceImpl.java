@@ -49,12 +49,13 @@ public class ProductServiceImpl implements ProductService {
 	 */
 
 	@Override
-	public Product deletProduct(final int productId) {
+	public List<Product> deletProduct(final int productId) {
 		// TODO Auto-generated method stub
 		LOGGER.info("deleting product");
-		Product product = productRepo.getOne(productId);
+		//Product product = productRepo.getOne(productId);
 		productRepo.deleteById(productId);
-		return product;
+		List<Product> productList=productRepo.findAll();
+		return productList;
 	}
 	/**
 	 * This method takes product details from controller 
@@ -63,11 +64,12 @@ public class ProductServiceImpl implements ProductService {
 	 * @return Product Object
 	 */
 	@Override
-	public Product updateProduct(final Product product) {
+	public List<Product> updateProduct(final Product product) {
 		// TODO Auto-generated method stub
 		LOGGER.info("updating product");
 		productRepo.saveAndFlush(product);
-		return product;
+		List<Product> productList=productRepo.findAll();
+		return productList;
 
 	}
 	/**

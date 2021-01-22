@@ -49,12 +49,13 @@ public class FeedbackServiceImpl implements FeedbackService {
 	 * @return Feedback
 	 */
 	@Override
-	public void deleteFeedback(final int feedbackId) {
+	public List<Feedback> deleteFeedback(final int feedbackId) {
 		// TODO Auto-generated method stub
 		LOGGER.info("deleting Feedback");
 		feedbackRepo.deleteById(feedbackId);
+		List<Feedback> feedbackList=feedbackRepo.findAll();
 		//Feedback feedback=feedbackRepo.getOne(feedbackId);
-		
+		return feedbackList;
 	}
 	/**
 	 * This method get feedback from Repository based on Id.

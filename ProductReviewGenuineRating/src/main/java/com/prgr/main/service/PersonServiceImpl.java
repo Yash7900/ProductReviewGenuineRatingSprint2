@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prgr.main.entity.Person;
+import com.prgr.main.entity.Staff;
 import com.prgr.main.exception.UserNotFoundException;
 import com.prgr.main.repository.PersonRepository;
+import com.prgr.main.repository.StaffRepository;
 
 @Service
 @Transactional
@@ -23,6 +25,9 @@ public class PersonServiceImpl implements PersonService{
 	private static final Logger LOGGER=LoggerFactory.getLogger(PersonServiceImpl.class);
 	@Autowired
 	private PersonRepository personRepo;
+	
+	@Autowired
+	private StaffRepository staffRepo;
 
 	/**
 	 * This method takes person details from controller 
@@ -79,11 +84,11 @@ public class PersonServiceImpl implements PersonService{
 	 * @throws UserNotFoundException 
 	 */
 	@Override
-	public boolean loginPerson(final int userId,final String email,final String password) {
+	public boolean loginPerson(final String email,final String password) {
 		LOGGER.info("Person login");
 		// TODO Auto-generated method stub
-		Person person=personRepo.getOne(userId);
-		if(person.getEmailId().equals(email) && person.getPassword().equals(password)) {
+		Person person=personRepo.findByEmailIdAndPassword(email, password);
+		if(person!=null) {
 			return true;
 		}
 		else {
@@ -102,12 +107,19 @@ public class PersonServiceImpl implements PersonService{
 	public boolean loginAdmin(final String username,final String password) {
 		// TODO Auto-generated method stub
 		LOGGER.info("admin login");
-		if(username.equals("admin") && password.equals("admin1234")) {
+		Staff staff=staffRepo.findByUserNameAndPassword(username, password);
+		if(staff!=null) {
 			return true;
 		}
 		else {
 		return false;
 		}
+//		if(username.equals("admin") && password.equals("admin1234")) {
+//			return true;
+//		}
+//		else {
+//		return false;
+//		}
 	}
 	/**
 	 * This method get a person based on their 

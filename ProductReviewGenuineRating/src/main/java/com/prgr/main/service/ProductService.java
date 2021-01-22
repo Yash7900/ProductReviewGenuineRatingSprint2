@@ -20,14 +20,14 @@ public interface ProductService {
 	 * @param 
 	 * @return Product Object
 	 */
-	 Product deletProduct(int productId);
+	 List<Product> deletProduct(int productId);
 	/**
 	 * This method takes product details from controller 
 	 * and update it to the repository.
 	 * @param 
 	 * @return Product Object
 	 */
-	 Product updateProduct(Product product);
+	 List<Product> updateProduct(Product product);
 	/**
 	 * This method takes product Id from controller 
 	 * and fetch the product from repository.

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prgr.main.entity.Feedback;
-import com.prgr.main.entity.Person;
 import com.prgr.main.entity.Product;
 import com.prgr.main.entity.Review;
+import com.prgr.main.entity.Person;
 import com.prgr.main.exception.ProductException;
 import com.prgr.main.exception.UserNotFoundException;
 import com.prgr.main.service.FeedbackService;
@@ -30,6 +31,7 @@ import com.prgr.main.service.ProductService;
 import com.prgr.main.service.ReviewService;
 import com.prgr.main.toc.CompareProduct;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/prgr/user")
 /**
@@ -77,9 +79,8 @@ public class UserController {
 	 * @throws UserNotFoundException 
 	 */
 	@GetMapping("/login")
-	public ResponseEntity<String> userLogin(@RequestParam("userId")final int userId,@RequestParam("emailId")final String email,@RequestParam("password")final String password) throws UserNotFoundException{
-		if(personService.getPerson(userId)) {
-			boolean login=personService.loginPerson(userId,email, password);
+	public ResponseEntity<String> userLogin(@RequestParam("emailId")final String email,@RequestParam("password")final String password) throws UserNotFoundException{
+			boolean login=personService.loginPerson(email, password);
 			LOGGER.info("user Login");
 			if(login) {
 				LOGGER.info("user Login Successful");
@@ -91,12 +92,9 @@ public class UserController {
 				return new ResponseEntity<String>("Check your emailId and password", HttpStatus.NOT_FOUND);
 			}	
 		}
-		else {
-			LOGGER.error("User Not Found");
-			throw new UserNotFoundException("Person cannot be logged, as id "+userId+" not present");
-		}
+		
 	
-	}
+	
 	/**
 	 * It accepts details from user and pass it to
 	 * the service layer updatePerson() method.

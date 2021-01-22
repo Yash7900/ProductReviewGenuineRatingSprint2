@@ -15,7 +15,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "PERSON")
+@Table(name = "Reviewer")
 /**
  * Person Entity Class
  * 
@@ -26,47 +26,46 @@ public class Person implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PERSON_ID")
+	@Column(name = "ID")
 	private int personId;
 
-	@Column(name = "PERSON_FIRST_NAME")
+	@Column(name = "FIRST_NAME")
 	@NotNull
 	@Size(min = 2, max = 15, message = "Enter Valid First_Name")
 	private String firstName;
 
-	@Column(name = "PERSON_LAST_NAME")
+	@Column(name = "LAST_NAME")
 	@NotNull
 	@Size(min = 2, max = 15, message = "Enter Valid Last_Name")
 	private String lastName;
 
-	@Column(name = "PERSON_ADDRESS")
+	@Column(name = "ADDRESS")
 	@NotNull
 	@Size(min = 2, max = 50, message = "Enter Valid Address")
 	private String address;
 
-	@Column(name = "PERSON_PHONE")
+	@Column(name = "PHONE")
 	// @Pattern(regexp="^[0-9]{10}",message="Enter Valid Phone number.")
 	@NotNull
 	@Digits(integer=10,fraction=0,message="Enter Valid PhoneNumber.")
 	private Long phoneNumber;
 
-	@Column(name = "PERSON_EMAIL_ID")
+	@Column(name = "EMAILID")
 	@Email
 	private String emailId;
 
-	@Column(name = "PERSON_Password")
+	@Column(name = "Password")
 	@Pattern(regexp = "^[a-zA-Z0-9]{6}", message = "Password length must be 6")
 	private String password;
 
-	@Column(name = "PERSON_ROLE")
-	private String role;
+	
 
 	public Person() {
 
 	}
 
 	public Person(final int personId,final String firstName,final String lastName,final String address,final Long phoneNumber,final String emailId,
-			final String password,final String role) {
+			final String password) {
 		super();
 		this.personId = personId;
 		this.firstName = firstName;
@@ -75,7 +74,7 @@ public class Person implements Serializable {
 		this.phoneNumber = phoneNumber;
 		this.emailId = emailId;
 		this.password = password;
-		this.role = role;
+		
 	}
 
 	public int getPersonId() {
@@ -134,18 +133,12 @@ public class Person implements Serializable {
 		this.password = password;
 	}
 
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(final String role) {
-		this.role = role;
-	}
+	
 
 	@Override
 	public String toString() {
-		return "Person [personId=" + personId + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
-				+ phoneNumber + ", password=" + password + ", role=" + role + "]";
+		return "Reviewer [personId=" + personId + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
+				+ phoneNumber + ", password=" + password + "]";
 	}
 
 }

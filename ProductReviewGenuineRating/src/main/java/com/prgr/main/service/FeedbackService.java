@@ -23,7 +23,7 @@ public interface FeedbackService {
 	 * @param 
 	 * @return Feedback
 	 */
-	 void deleteFeedback(int feedbackId);
+	 List<Feedback> deleteFeedback(int feedbackId);
 	/**
 	 * This method get feedback from Repository based on Id.
 	 * @param feedbackId

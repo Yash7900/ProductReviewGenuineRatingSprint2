@@ -17,6 +17,8 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.prgr.main.entity.Person;
+
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace=Replace.NONE)
@@ -70,7 +72,6 @@ class PersonRepositoryTest {
 		person.setPhoneNumber(983356549);
 		person.setEmailId("yash@email.com");
 		person.setPassword("yash08");
-		person.setRole("user");
 		return person;
 	}
 }

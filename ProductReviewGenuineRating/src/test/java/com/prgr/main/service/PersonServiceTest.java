@@ -125,7 +125,7 @@ class PersonServiceTest {
 		assertEquals(person.getEmailId(),"siddhi@email.com");
 		assertEquals(person.getPassword(),"siddhi08");
 		Mockito.when(personRepo.getOne(1)).thenReturn(person);
-		assertTrue(personService.loginPerson(person.getPersonId(),person.getEmailId(),person.getPassword()));
+		assertTrue(personService.loginPerson(person.getEmailId(),person.getPassword()));
 	}
 	
 }
