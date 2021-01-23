@@ -34,7 +34,7 @@ import com.prgr.main.toc.Message;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/prgr/admin")
+@RequestMapping("/api/prgr/admin")
 /**
  * Admin Controller Class
  * @author YASH
@@ -165,15 +165,18 @@ public class AdminController {
 	 * @return List<Product> object
 	 */
 	@GetMapping("/getallproduct")
-	public ResponseEntity<List<Product>> getProductList() throws ProductException{
+	public ResponseEntity<Message> getProductList() throws ProductException{
 		LOGGER.info("admin views all products");
-		List<Product> productList = productService.getProductList();
-		if (!productList.isEmpty()) {
-			return new ResponseEntity<List<Product>>(productList, HttpStatus.OK);
+		Message msg=new Message();
+		msg.setResMessage("Successfully returning of list");
+		msg.setProductList(productService.getProductList());
+		List<Product> productsList = productService.getProductList();
+		if (!productsList.isEmpty()) {
+			return new ResponseEntity<Message>(msg,HttpStatus.OK);
 		} else {
 			LOGGER.error("No Product Found");
 			throw new ProductException("No Product Found");
-		}		
+		}	
 		
 	}
 
@@ -186,15 +189,18 @@ public class AdminController {
 	 */
 
 	@GetMapping("/getproductbycategory/{category}")
-	public  ResponseEntity<List<Product>> getProductByCategory(@PathVariable("category")final String category) throws ProductException{
+	public  ResponseEntity<Message> getProductByCategory(@PathVariable("category")final String category) throws ProductException{
 		LOGGER.info("admin views products by category");
-		List<Product> list = productService.getProductByCategory(category);
-		if (!list.isEmpty()) {
-			return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+		Message msg=new Message();
+		msg.setResMessage("Successfully returning of list");
+		msg.setProductList(productService.getProductByCategory(category));
+		List<Product> productsList = productService.getProductByCategory(category);
+		if (!productsList.isEmpty()) {
+			return new ResponseEntity<Message>(msg,HttpStatus.OK);
 		} else {
-			LOGGER.error("No Product Found by this category");
-			throw new ProductException("No Product Found by this category");
-		}
+			LOGGER.error("No Product Found");
+			throw new ProductException("No Product Found");
+		}	
 	}
 	
 	/**

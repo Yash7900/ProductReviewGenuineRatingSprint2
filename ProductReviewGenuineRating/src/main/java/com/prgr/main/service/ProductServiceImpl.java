@@ -134,4 +134,10 @@ public class ProductServiceImpl implements ProductService {
 		return compareProduct;
 	}
 
+	@Override
+	public List<String> getCategory() {
+		// TODO Auto-generated method stub
+		return productRepo.getCategory();
+	}
+
 }

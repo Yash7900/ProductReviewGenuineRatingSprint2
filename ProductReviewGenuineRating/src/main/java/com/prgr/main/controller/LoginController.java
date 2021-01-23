@@ -43,10 +43,12 @@ public class LoginController {
 		if (login) {
 			LOGGER.info("admin Login Successful");
 			msg.setResMessage("Login Successful ");
+			msg.setStatus(200);
 			return new ResponseEntity<Message>(msg,HttpStatus.OK);
 		} else {
 			LOGGER.info("admin Login Failed");
 			msg.setResMessage("Login Failed ");
+			msg.setStatus(404);
 			return new ResponseEntity<Message>(msg,HttpStatus.NOT_FOUND);
 		}
 	}
@@ -66,6 +68,7 @@ public class LoginController {
 			if(login.isEmpty()) {
 				LOGGER.info("user Login Failed");
 				msg.setResMessage(" Login Failed ");
+				msg.setStatus(404);
 				return new ResponseEntity<Message>(msg,HttpStatus.NOT_FOUND);
 				
 			}
@@ -73,6 +76,7 @@ public class LoginController {
 				LOGGER.info("user Login Successful");
 				msg.setResMessage("Login Successful ");
 				msg.setPersonList(login);
+				msg.setStatus(200);
 				return new ResponseEntity<Message>(msg,HttpStatus.OK);
 			}	
 		}

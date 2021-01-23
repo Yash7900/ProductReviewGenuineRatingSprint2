@@ -15,6 +15,18 @@ public class Message {
 	private List<Product> productList;
 	
 	private List<Feedback> feedbackList;
+	
+	private int status;
+	
+	
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 
 	public String getResMessage() {
 		return resMessage;

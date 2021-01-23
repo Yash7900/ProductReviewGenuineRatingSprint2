@@ -56,4 +56,6 @@ public interface ProductService {
 	 * @return CompareProduct
 	 */
 	 CompareProduct compareTwoProductBasedOnCategory(String category,int productId1,int productId2);
+	 
+	 List<String> getCategory();
 }

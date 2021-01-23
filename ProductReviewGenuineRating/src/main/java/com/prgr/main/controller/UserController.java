@@ -30,10 +30,11 @@ import com.prgr.main.service.PersonService;
 import com.prgr.main.service.ProductService;
 import com.prgr.main.service.ReviewService;
 import com.prgr.main.toc.CompareProduct;
+import com.prgr.main.toc.Message;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/prgr/user")
+@RequestMapping("api/prgr/user")
 /**
  * User Controller class
  * @author YASH
@@ -146,15 +147,18 @@ public class UserController {
 	 */
 
 	@GetMapping("/getproductbycategory/{category}")
-	public  ResponseEntity<List<Product>> getProductByCategory(@PathVariable("category") final String category) throws ProductException{
-		LOGGER.info("User views products by category");
-		List<Product> list = productService.getProductByCategory(category);
-		if (!list.isEmpty()) {
-			return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+	public  ResponseEntity<Message> getProductByCategory(@PathVariable("category")final String category) throws ProductException{
+		LOGGER.info("admin views products by category");
+		Message msg=new Message();
+		msg.setResMessage("Successfully returning of list");
+		msg.setProductList(productService.getProductByCategory(category));
+		List<Product> productsList = productService.getProductByCategory(category);
+		if (!productsList.isEmpty()) {
+			return new ResponseEntity<Message>(msg,HttpStatus.OK);
 		} else {
-			LOGGER.error("No Product Found by this category");
-			throw new ProductException("No Product Found by this category");
-		}
+			LOGGER.error("No Product Found");
+			throw new ProductException("No Product Found");
+		}	
 	}
 
 	/**
@@ -216,6 +220,11 @@ public class UserController {
 			LOGGER.error("No Product Found");
 			throw new ProductException("No Product Found by the given Id.");
 		}
+	}
+	
+	@GetMapping("category")
+	public ResponseEntity<List<String>> getCategory(){
+		return new ResponseEntity<List<String>>(productService.getCategory(),HttpStatus.OK);
 	}
 
 }
