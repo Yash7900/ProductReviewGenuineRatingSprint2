@@ -25,11 +25,11 @@ public class Feedback implements Serializable {
 	private int feedbackId;
 	@Column(name = "FEEDBACK_ABOUT")
 	@NotNull
-	@Size(min=2,max=20,message="feedback about cannot be null")
+	@Size(min=2,message="feedback about cannot be null")
 	private String feedbackAbout;
 	@Column(name = "FEEDBACK_DESCRIPTION")
 	@NotNull
-	@Size(min=2,max=50,message="feedback description cannot be null")
+	@Size(min=2,message="feedback description cannot be null")
 	private String feedbackDescription;
 	
 	public Feedback()

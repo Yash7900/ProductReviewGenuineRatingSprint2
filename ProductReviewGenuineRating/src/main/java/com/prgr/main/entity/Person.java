@@ -41,7 +41,7 @@ public class Person implements Serializable {
 
 	@Column(name = "ADDRESS")
 	@NotNull
-	@Size(min = 2, max = 50, message = "Enter Valid Address")
+	@Size(min = 2, max = 250, message = "Enter Valid Address")
 	private String address;
 
 	@Column(name = "PHONE")
@@ -55,7 +55,7 @@ public class Person implements Serializable {
 	private String emailId;
 
 	@Column(name = "Password")
-	@Pattern(regexp = "^[a-zA-Z0-9]{6}", message = "Password length must be 6")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Password must be combination of letters and numbers")
 	private String password;
 
 	

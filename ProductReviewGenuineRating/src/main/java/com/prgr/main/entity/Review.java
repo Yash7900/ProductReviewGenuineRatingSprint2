@@ -36,7 +36,7 @@ public class Review implements Serializable {
     @Max(value = 5, message = "Rating should not be greater than 5")
 	private int rate;
 	@Column(name = "REVIEW_DESCRIPTION")
-	@Size(min =2, max =50, message = "Description Me must be between 2 and 50 characters")
+	@Size(min =2,message = "Description Me must be between 2 and 50 characters")
 	private String description;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
