@@ -5,6 +5,7 @@ import java.util.List;
 import com.prgr.main.entity.Feedback;
 import com.prgr.main.entity.Person;
 import com.prgr.main.entity.Product;
+import com.prgr.main.entity.Staff;
 
 public class Message {
 	
@@ -18,7 +19,15 @@ public class Message {
 	
 	private int status;
 	
-	
+	private List<Staff> staffList; 
+
+	public List<Staff> getStaffList() {
+		return staffList;
+	}
+
+	public void setStaffList(List<Staff> staffList) {
+		this.staffList = staffList;
+	}
 
 	public int getStatus() {
 		return status;

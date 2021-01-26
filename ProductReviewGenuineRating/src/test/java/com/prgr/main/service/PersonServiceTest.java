@@ -3,8 +3,6 @@ package com.prgr.main.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,12 +101,12 @@ class PersonServiceTest {
 		String username="admin";
 		String password="admin1234";
 		
-		assertTrue(personService.loginAdmin(username, password));
+		assertNotNull(personService.loginAdmin(username, password));
 		
 		String username1="admin";
 		String password1="Admin12345";
 		
-		assertFalse(personService.loginAdmin(username1, password1));
+		assertNotNull(personService.loginAdmin(username1, password1));
 	}
 	
 	@Test

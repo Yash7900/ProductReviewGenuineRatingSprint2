@@ -3,6 +3,7 @@ package com.prgr.main.service;
 import java.util.List;
 
 import com.prgr.main.entity.Person;
+import com.prgr.main.entity.Staff;
 import com.prgr.main.exception.UserNotFoundException;
 
 public interface PersonService {
@@ -14,7 +15,7 @@ public interface PersonService {
 	 * @param password
 	 * @return boolean(T/F)
 	 */
-	 boolean loginAdmin(String username,String password);
+	List<Staff> loginAdmin(String username,String password);
 	/**
 	 * This method takes credentials from controller and then 
 	 * checks it with repository.

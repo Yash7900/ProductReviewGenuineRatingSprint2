@@ -38,18 +38,20 @@ public class LoginController {
 	
 	public ResponseEntity<Message> adminLogin(@RequestBody Staff staff) {
 		LOGGER.info("admin Login");
-		boolean login = personService.loginAdmin(staff.getEmailId(),staff.getPassword());
+		List<Staff> login = personService.loginAdmin(staff.getEmailId(),staff.getPassword());
 		Message msg=new Message();
-		if (login) {
-			LOGGER.info("admin Login Successful");
-			msg.setResMessage("Login Successful ");
-			msg.setStatus(200);
-			return new ResponseEntity<Message>(msg,HttpStatus.OK);
-		} else {
+		if (login.isEmpty()) {
 			LOGGER.info("admin Login Failed");
 			msg.setResMessage("Login Failed ");
 			msg.setStatus(404);
 			return new ResponseEntity<Message>(msg,HttpStatus.NOT_FOUND);
+			
+		} else {
+			LOGGER.info("admin Login Successful");
+			msg.setResMessage("Login Successful ");
+			msg.setStatus(200);
+			msg.setStaffList(login);
+			return new ResponseEntity<Message>(msg,HttpStatus.OK);
 		}
 	}
 	

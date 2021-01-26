@@ -104,15 +104,15 @@ public class PersonServiceImpl implements PersonService{
 	 * @return boolean(T/F)
 	 */
 	@Override
-	public boolean loginAdmin(final String username,final String password) {
+	public List<Staff> loginAdmin(final String username,final String password) {
 		// TODO Auto-generated method stub
 		LOGGER.info("admin login");
-		Staff staff=staffRepo.findByEmailIdAndPassword(username, password);
+		List<Staff> staff=staffRepo.findByEmailIdAndPassword(username, password);
 		if(staff!=null) {
-			return true;
+			return staff;
 		}
 		else {
-		return false;
+		return null;
 		}
 //		if(username.equals("admin") && password.equals("admin1234")) {
 //			return true;
