@@ -1,5 +1,6 @@
 package com.prgr.main.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -73,7 +74,14 @@ public class UserController {
 		
 	}
 	
-
+	
+	@GetMapping("/getPersonById/{id}")
+	public ResponseEntity<Person>getPersonById(@PathVariable("id") final int personId){
+		Person savePerson=personService.getPersonById(personId);
+		
+			return new ResponseEntity<Person>(savePerson, HttpStatus.OK);
+		
+	}
 	
 	
 	/**
@@ -224,6 +232,9 @@ public class UserController {
 	
 	@GetMapping("category")
 	public ResponseEntity<List<String>> getCategory(){
+		List<String> categories=productService.getCategory();
+		List<String> categoryList=new ArrayList<String>(categories);
+		System.out.println(categoryList);
 		return new ResponseEntity<List<String>>(productService.getCategory(),HttpStatus.OK);
 	}
 

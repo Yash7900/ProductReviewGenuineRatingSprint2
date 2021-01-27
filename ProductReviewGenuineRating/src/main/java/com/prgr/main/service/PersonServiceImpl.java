@@ -137,4 +137,10 @@ public class PersonServiceImpl implements PersonService{
 		return false;
 	}
 
+	@Override
+	public Person getPersonById(int personId) {
+		// TODO Auto-generated method stub
+		return personRepo.getOne(personId);
+	}
+
 }

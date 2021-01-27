@@ -53,4 +53,6 @@ public interface PersonService {
 	 * @return boolean
 	 */
 	 boolean getPerson(int personId);
+	 
+	 Person getPersonById(int personId);
 }
